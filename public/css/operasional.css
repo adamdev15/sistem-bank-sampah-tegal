@@ -1,0 +1,151 @@
+/* Operasional Page Styles */
+.operasional-container {
+    padding: 20px;
+}
+
+/* Stats Overview */
+.stats-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+}
+
+.stat-info h3 {
+    font-size: 20px;
+    margin: 0 0 5px 0;
+    color: #2c3e50;
+}
+
+.stat-info p {
+    margin: 0;
+    color: #7f8c8d;
+    font-size: 13px;
+}
+
+/* Badge Groups */
+.badge-group {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    min-width: 30px;
+    text-align: center;
+}
+
+.badge-male {
+    background: #3498db;
+    color: white;
+}
+
+.badge-female {
+    background: #e84393;
+    color: white;
+}
+
+.badge-total {
+    background: #2c3e50;
+    color: white;
+}
+
+.badge-success {
+    background: #2ecc71;
+    color: white;
+}
+
+.badge-secondary {
+    background: #95a5a6;
+    color: white;
+}
+
+/* System Badges */
+.system-badge {
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.system-badge.manual {
+    background: #ffeaa7;
+    color: #856404;
+}
+
+.system-badge.digital {
+    background: #d4edda;
+    color: #155724;
+}
+
+.system-badge.kedua-duanya {
+    background: #cce5ff;
+    color: #004085;
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+    .stats-overview {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .stat-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 10px;
+    }
+    
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    .stat-info h3 {
+        font-size: 16px;
+    }
+    
+    .badge-group {
+        flex-direction: column;
+        gap: 2px;
+    }
+    
+    .badge {
+        min-width: 25px;
+        padding: 2px 5px;
+        font-size: 10px;
+    }
+}

@@ -1,0 +1,369 @@
+/* PDF OPERASIONAL STYLES - Khusus untuk export PDF */
+
+@page {
+    margin: 50px 25px;
+    size: A4 portrait;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+}
+
+.pdf-container {
+    max-width: 100%;
+}
+
+/* Header */
+.header {
+    margin-bottom: 30px;
+    border-bottom: 3px solid #2c3e50;
+    padding-bottom: 15px;
+}
+
+.header-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+.logo-cell {
+    width: 80px;
+    vertical-align: top;
+    padding-right: 20px;
+}
+
+.logo {
+    max-width: 80px;
+    height: auto;
+}
+
+.title-cell {
+    vertical-align: top;
+}
+
+.title-cell h1 {
+    font-size: 18px;
+    color: #2c3e50;
+    margin: 0 0 5px 0;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.title-cell h2 {
+    font-size: 16px;
+    color: #3498db;
+    margin: 0 0 10px 0;
+    font-weight: 600;
+}
+
+.subtitle {
+    font-size: 11px;
+    color: #7f8c8d;
+    margin: 0;
+    line-height: 1.3;
+}
+
+/* Metadata */
+.metadata {
+    background: #f8f9fa;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+}
+
+.meta-table {
+    width: 100%;
+    font-size: 11px;
+}
+
+.meta-table td {
+    padding: 3px 0;
+    width: 33.33%;
+}
+
+.meta-table strong {
+    color: #2c3e50;
+}
+
+/* Sections */
+.section {
+    margin-bottom: 20px;
+    page-break-inside: avoid;
+}
+
+.section-title {
+    font-size: 14px;
+    color: #2c3e50;
+    margin: 0 0 15px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #3498db;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.section-number {
+    background: #3498db;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+/* Data Grid */
+.data-grid {
+    margin-bottom: 15px;
+}
+
+.data-row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.data-cell {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    margin-right: 10px;
+    background: #f8f9fa;
+}
+
+.data-cell:last-child {
+    margin-right: 0;
+}
+
+.data-cell.large {
+    flex: 2;
+}
+
+.data-cell.highlight {
+    background: #e3f2fd;
+    border-color: #3498db;
+}
+
+.label {
+    display: block;
+    font-size: 10px;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.value {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* Text Sections */
+.text-section {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+}
+
+.text-item {
+    margin-bottom: 15px;
+}
+
+.text-item:last-child {
+    margin-bottom: 0;
+}
+
+.text-item h4 {
+    font-size: 12px;
+    color: #2c3e50;
+    margin: 0 0 8px 0;
+    font-weight: bold;
+}
+
+.text-content {
+    font-size: 11px;
+    line-height: 1.5;
+    color: #555;
+    white-space: pre-line;
+}
+
+/* Facility Table */
+.facility-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.facility-table thead {
+    background: #2c3e50;
+    color: white;
+}
+
+.facility-table th {
+    padding: 8px 12px;
+    font-size: 11px;
+    font-weight: bold;
+    text-align: left;
+    border: 1px solid #34495e;
+}
+
+.facility-table td {
+    padding: 8px 12px;
+    font-size: 11px;
+    border: 1px solid #e0e0e0;
+}
+
+.facility-table tbody tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+/* Summary */
+.summary {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+}
+
+.summary-grid {
+    display: flex;
+    gap: 15px;
+}
+
+.summary-item {
+    flex: 1;
+    text-align: center;
+    padding: 15px;
+    background: white;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+}
+
+.summary-label {
+    font-size: 11px;
+    color: #7f8c8d;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.summary-value {
+    font-size: 16px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.summary-value.complete {
+    color: #2ecc71;
+    background: #e8f6ef;
+    padding: 5px 10px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+/* Footer */
+.footer {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 2px solid #e0e0e0;
+    font-size: 10px;
+    color: #7f8c8d;
+}
+
+.footer-table {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.footer-left {
+    width: 60%;
+    vertical-align: top;
+}
+
+.footer-left strong {
+    color: #2c3e50;
+    font-size: 11px;
+}
+
+.footer-right {
+    width: 40%;
+    vertical-align: top;
+    text-align: center;
+}
+
+.signature {
+    display: inline-block;
+    text-align: center;
+}
+
+.signature-line {
+    width: 200px;
+    height: 1px;
+    background: #333;
+    margin: 20px auto 5px;
+}
+
+.signature-label {
+    font-size: 10px;
+    margin: 5px 0;
+}
+
+.signature-name {
+    font-size: 12px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.footer-info {
+    text-align: center;
+    font-size: 9px;
+    color: #95a5a6;
+    padding-top: 10px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.page-number:after {
+    content: counter(page);
+}
+
+/* Page Break Control */
+.page-break {
+    page-break-before: always;
+}
+
+.no-break {
+    page-break-inside: avoid;
+}
+
+/* Colors */
+.text-primary { color: #3498db; }
+.text-success { color: #2ecc71; }
+.text-warning { color: #f39c12; }
+.text-danger { color: #e74c3c; }
+
+.bg-primary { background: #3498db; color: white; }
+.bg-success { background: #2ecc71; color: white; }
+.bg-warning { background: #f39c12; color: white; }
+.bg-danger { background: #e74c3c; color: white; }
+
+/* Utilities */
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+
+.mt-10 { margin-top: 10px; }
+.mb-10 { margin-bottom: 10px; }
+.mt-20 { margin-top: 20px; }
+.mb-20 { margin-bottom: 20px; }
+
+.bold { font-weight: bold; }
+.italic { font-style: italic; }
+.underline { text-decoration: underline; }
+.uppercase { text-transform: uppercase; }

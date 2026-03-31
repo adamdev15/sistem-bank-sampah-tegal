@@ -1,0 +1,104 @@
+/* =================================================
+   BANK MAIN.CSS
+   WARNA & KOMPONEN (AMAN DARI TABRAKAN)
+   ================================================= */
+
+/* ===== BASE ===== */
+.bank-body {
+    background: #f3f6f4;
+    color: #2f3e36;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+
+/* ===== LINK ===== */
+a {
+    color: #1f5f46;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #198754;
+}
+
+/* ===== BUTTON ===== */
+.btn {
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.btn-success {
+    background-color: #1f5f46;
+    border-color: #1f5f46;
+}
+
+.btn-success:hover {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+/* ===== BADGE ===== */
+.badge {
+    font-size: 11px;
+    padding: 3px 6px;
+    border-radius: 8px;
+}
+
+/* ===== CARD / CONTENT ===== */
+.content-header,
+.content-body {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+}
+
+.content-header {
+    padding: 18px 22px;
+    margin-bottom: 18px;
+}
+
+.content-header h1 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.content-body {
+    padding: 22px;
+    min-height: 400px;
+}
+
+/* ===== BREADCRUMB ===== */
+.breadcrumb-nav {
+    font-size: 12.5px;
+    color: #6c8a7d;
+}
+
+.breadcrumb-nav a {
+    color: #1f5f46;
+}
+
+/* ===== TABLE ===== */
+table {
+    font-size: 13px;
+}
+
+.table thead {
+    background: #e6f0eb;
+}
+
+.table th {
+    font-weight: 600;
+    color: #1f3d2b;
+}
+
+/* ===== FORM ===== */
+.form-control {
+    font-size: 13px;
+    border-radius: 6px;
+}
+
+.form-label {
+    font-size: 13px;
+    font-weight: 500;
+}

@@ -1,0 +1,199 @@
+/* Users Page Styles */
+.users-container {
+    padding: 20px;
+}
+
+/* Stats Overview */
+.stats-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stats-overview .stat-card {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-left: 4px solid;
+    transition: transform 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.stat-card.waiting {
+    border-left-color: #f39c12;
+}
+
+.stat-card.active {
+    border-left-color: #2ecc71;
+}
+
+.stat-card.rejected {
+    border-left-color: #e74c3c;
+}
+
+.stat-card.total {
+    border-left-color: #3498db;
+}
+
+.stat-card .stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+}
+
+.stat-card.waiting .stat-icon {
+    background: #f39c12;
+}
+
+.stat-card.active .stat-icon {
+    background: #2ecc71;
+}
+
+.stat-card.rejected .stat-icon {
+    background: #e74c3c;
+}
+
+.stat-card.total .stat-icon {
+    background: #3498db;
+}
+
+.stat-card .stat-info h3 {
+    font-size: 24px;
+    margin: 0 0 5px 0;
+    color: #2c3e50;
+}
+
+.stat-card .stat-info p {
+    margin: 0;
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.status-menunggu_verifikasi {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-aktif {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-ditolak {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Action Buttons */
+.action-column {
+    white-space: nowrap;
+}
+
+.btn-verify, .btn-reset-password {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 14px;
+    margin: 0 2px;
+}
+
+.btn-verify {
+    background: #2ecc71;
+    color: white;
+}
+
+.btn-verify:hover {
+    background: #27ae60;
+}
+
+.btn-reset-password {
+    background: #f39c12;
+    color: white;
+}
+
+.btn-reset-password:hover {
+    background: #e67e22;
+}
+
+/* User Info in Modal */
+.user-info {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.user-info p {
+    margin: 5px 0;
+    display: flex;
+}
+
+.user-info strong {
+    min-width: 120px;
+    color: #2c3e50;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stats-overview {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .stat-card {
+        padding: 10px;
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .stat-card .stat-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+    
+    .stat-card .stat-info h3 {
+        font-size: 20px;
+    }
+    
+    .action-column {
+        white-space: normal;
+        display: flex;
+        gap: 5px;
+    }
+    
+    .btn-verify, .btn-reset-password {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,117 @@
+/* BASMAN – halaman publik (login/register/lupa password) + navbar/footer */
+:root {
+    --basman-green: #1f5f46;
+    --basman-green-light: #2f7d5a;
+    --basman-green-soft: #e8f5e9;
+    --basman-ink: #1a2e1f;
+}
+
+.guest-page {
+    font-family: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--basman-ink);
+    background: linear-gradient(160deg, var(--basman-green-soft) 0%, #f1f8f4 45%, #ffffff 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.guest-navbar {
+    background: linear-gradient(90deg, var(--basman-green) 0%, var(--basman-green-light) 100%);
+    box-shadow: 0 4px 14px rgba(27, 94, 32, 0.25);
+}
+
+.guest-navbar .navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.guest-navbar .nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500;
+    border-radius: 0.375rem;
+    padding: 0.4rem 0.75rem !important;
+}
+
+.guest-navbar .nav-link:hover,
+.guest-navbar .nav-link:focus {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.guest-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.guest-footer {
+    background: #153f19;
+    color: rgba(255, 255, 255, 0.88);
+    padding: 1.25rem 0;
+    margin-top: auto;
+}
+
+.guest-footer small {
+    opacity: 0.85;
+}
+
+.auth-card-basman {
+    border: none;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(27, 94, 32, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.auth-card-basman .card-header-basman {
+    background: linear-gradient(135deg, var(--basman-green) 0%, #145016 100%);
+    color: #fff;
+    padding: 1.5rem 1.75rem;
+    border: none;
+}
+
+.auth-card-basman .card-header-basman p {
+    margin: 0;
+    opacity: 0.92;
+    font-size: 0.9rem;
+}
+
+.auth-card-basman .card-body {
+    padding: 1.75rem;
+}
+
+.btn-basman-primary {
+    --bs-btn-bg: var(--basman-green);
+    --bs-btn-border-color: var(--basman-green);
+    --bs-btn-hover-bg: #154a19;
+    --bs-btn-hover-border-color: #154a19;
+    --bs-btn-active-bg: #0f3a12;
+    --bs-btn-active-border-color: #0f3a12;
+    font-weight: 600;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--basman-green-light);
+    box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.2);
+}
+
+.auth-link-muted {
+    color: var(--basman-green-light);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.auth-link-muted:hover {
+    color: var(--basman-green);
+    text-decoration: underline;
+}
+
+.auth-info-box {
+    background: var(--basman-green-soft);
+    border-left: 4px solid var(--basman-green-light);
+    border-radius: 0.375rem;
+    padding: 1rem 1.1rem;
+    font-size: 0.9rem;
+}

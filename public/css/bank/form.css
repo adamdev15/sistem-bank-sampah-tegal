@@ -1,0 +1,391 @@
+/* =========================================================
+   BANK SAMPAH — FORM CREATE / EDIT LAPORAN
+   Aman ditumpuk dengan CSS lain
+   ========================================================= */
+
+/* =========================
+   ROOT VARIABLE (AMAN)
+   ========================= */
+:root {
+    --bs-primary: #1f5f46;
+    --bs-primary-dark: #2f7d5a;
+    --bs-accent: #2f7d5a;
+    --bs-bg-soft: #f0fff4;
+    --bs-border: #e2e8f0;
+    --bs-text-dark: #1a202c;
+    --bs-text-muted: #718096;
+    --bs-danger: #e53e3e;
+    --bs-warning: #dd6b20;
+}
+
+/* =========================
+   CONTAINER
+   ========================= */
+.form-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+    color: var(--bs-text-dark);
+}
+
+/* =========================
+   HEADER
+   ========================= */
+.form-header {
+    background: linear-gradient(135deg, var(--bs-primary), var(--bs-primary-dark));
+    color: #fff;
+    padding: 28px 32px;
+    border-radius: 14px;
+    margin-bottom: 30px;
+    box-shadow: 0 15px 35px rgba(31, 95, 70, 0.25);
+}
+
+.form-header h2 {
+    margin: 0 0 8px 0;
+    font-size: 26px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.form-header p {
+    margin: 0;
+    font-size: 15px;
+    opacity: 0.95;
+}
+
+/* =========================
+   REFERENSI BULAN LALU
+   ========================= */
+.reference-info {
+    background: var(--bs-bg-soft);
+    border-left: 5px solid var(--bs-accent);
+    padding: 16px 22px;
+    border-radius: 10px;
+    margin-bottom: 28px;
+}
+
+.reference-info h4 {
+    margin: 0 0 10px 0;
+    color: var(--bs-primary-dark);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.reference-info p {
+    margin: 6px 0;
+    font-size: 14px;
+}
+
+/* =========================
+   FORM SECTION
+   ========================= */
+.form-section {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 26px;
+    margin-bottom: 26px;
+    border: 1px solid var(--bs-border);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+.form-section h3 {
+    margin: 0 0 22px 0;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--bs-primary-dark);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 14px;
+    border-bottom: 2px dashed var(--bs-border);
+}
+
+/* =========================
+   GRID & GROUP
+   ========================= */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================
+   LABEL & INPUT
+   ========================= */
+.form-label {
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.required {
+    color: var(--bs-danger);
+}
+
+.input-group {
+    display: flex;
+    align-items: stretch;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 2px solid var(--bs-border);
+    font-size: 15px;
+    transition: all 0.25s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 4px rgba(31, 95, 70, 0.15);
+}
+
+.form-control.error {
+    border-color: var(--bs-danger);
+}
+
+.input-unit {
+    background: #f7fafc;
+    border: 2px solid var(--bs-border);
+    border-left: none;
+    padding: 0 14px;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: var(--bs-text-muted);
+}
+
+/* =========================
+   HELP & ERROR
+   ========================= */
+.form-help {
+    margin-top: 5px;
+    font-size: 12.5px;
+    color: var(--bs-text-muted);
+    font-style: italic;
+}
+
+.error-message {
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--bs-danger);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.form-warning {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--bs-warning);
+    display: flex;
+    gap: 8px;
+}
+
+/* =========================
+   INFO BOX TOTAL
+   ========================= */
+.info-box {
+    background: #f4faf7;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid var(--bs-border);
+    margin-bottom: 22px;
+}
+
+.info-box h4 {
+    margin: 0 0 12px 0;
+    font-size: 15px;
+    color: var(--bs-primary-dark);
+    display: flex;
+    gap: 8px;
+}
+
+.total-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--bs-primary-dark);
+}
+
+.total-error {
+    color: var(--bs-danger);
+    font-weight: 600;
+}
+
+/* =========================
+   PROGRESS BAR
+   ========================= */
+.progress-container {
+    height: 20px;
+    border-radius: 12px;
+    background: #edf2f7;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--bs-accent);
+    transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+.progress-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* =========================
+   RINCIAN SAMPAH
+   ========================= */
+.rincian-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+}
+
+.rincian-item {
+    background: #f7fafc;
+    border: 1px solid var(--bs-border);
+    border-radius: 12px;
+    padding: 16px;
+    transition: all 0.25s ease;
+}
+
+.rincian-item:hover {
+    background: #ffffff;
+    border-color: var(--bs-primary);
+    box-shadow: 0 6px 18px rgba(31, 95, 70, 0.15);
+}
+
+.rincian-label {
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    gap: 8px;
+}
+
+.rincian-input-group {
+    display: flex;
+    align-items: stretch;
+}
+
+.rincian-icon {
+    background: #edf6f1;
+    border: 2px solid var(--bs-border);
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+    width: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bs-primary-dark);
+    flex-shrink: 0;
+}
+
+.rincian-input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 0;
+    border: 2px solid var(--bs-border);
+    font-size: 14px;
+    text-align: right;
+}
+
+.rincian-input-group .input-unit {
+    border-radius: 0 8px 8px 0;
+}
+
+/* =========================
+   VALIDATION SECTION
+   ========================= */
+.validation-section {
+    background: #fff5f5;
+    border: 1px solid #fed7d7;
+    border-radius: 10px;
+    padding: 18px;
+    margin: 24px 0;
+}
+
+.validation-header {
+    font-weight: 700;
+    color: var(--bs-danger);
+    margin-bottom: 8px;
+}
+
+.validation-errors li {
+    font-size: 14px;
+}
+
+/* =========================
+   FORM ACTIONS
+   ========================= */
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: flex-end;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--bs-border);
+}
+
+.btn-calculate,
+.btn-auto,
+.btn-submit,
+.btn-cancel {
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.25s ease;
+}
+
+/* Buttons */
+.btn-calculate { background: #2f7d5a; color: #fff; }
+.btn-auto { background: #1f5f46; color: #fff; }
+.btn-submit { background: var(--bs-accent); color: #fff; }
+.btn-cancel { background: #8b1f1f; color: #fff; }
+
+.btn-submit.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+@media (max-width: 768px) {
+    .form-actions {
+        flex-direction: column;
+    }
+    .btn-calculate,
+    .btn-auto,
+    .btn-submit,
+    .btn-cancel {
+        width: 100%;
+        justify-content: center;
+    }
+}

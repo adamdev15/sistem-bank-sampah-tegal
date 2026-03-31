@@ -1,0 +1,405 @@
+/* =====================================================
+   BANK SAMPAH – DASHBOARD.CSS
+   Variatif • Profesional • Interaktif Halus
+   ===================================================== */
+
+.bank-dashboard {
+    max-width: 1200px;
+    margin: 0 auto 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    min-width: 0;
+}
+
+/* =====================================================
+   WELCOME / PROFILE SECTION
+===================================================== */
+.bank-welcome-section {
+    position: relative;
+    background: linear-gradient(135deg, #1f5f46, #2f7d5a);
+    border-radius: 14px;
+    padding: 26px 28px;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+}
+
+.bank-hero-side {
+    min-width: 230px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bank-progress-snapshot {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 10px 12px;
+}
+
+.bank-progress-snapshot small {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 11px;
+    opacity: .95;
+}
+
+.bank-progress-snapshot .progress {
+    height: 12px;
+    background: rgba(255,255,255,0.25);
+}
+
+.bank-progress-snapshot .progress-bar {
+    font-size: 10px;
+    font-weight: 700;
+}
+
+/* decorative bubble */
+.bank-welcome-section::after {
+    content: "";
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 160px;
+    height: 160px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+}
+
+.bank-welcome-content h1 {
+    font-size: 20px;
+    margin: 0 0 6px;
+}
+
+.bank-welcome-content p {
+    font-size: 13px;
+    margin: 0 0 14px;
+    color: #e4f3ed;
+}
+
+.bank-welcome-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 12.5px;
+}
+
+.bank-welcome-info span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.12);
+    padding: 6px 10px;
+    border-radius: 20px;
+    transition: background 0.25s ease;
+}
+
+.bank-welcome-info span:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* STATUS BADGE */
+.bank-status-badge {
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+}
+
+.bank-status-active {
+    background: rgba(255,255,255,0.2);
+    color: #ffffff;
+}
+
+.bank-status-menunggu-verifikasi {
+    background: #fff8e1;
+    color: #8d6e00;
+}
+
+.bank-status-disetujui {
+    background: #e8f5e9;
+    color: #1f5f46;
+}
+
+.bank-status-perlu-perbaikan {
+    background: #fdecea;
+    color: #b71c1c;
+}
+
+.bank-status-none {
+    background: #eceff1;
+    color: #455a64;
+}
+
+/* =====================================================
+   QUICK STATS
+===================================================== */
+.bank-quick-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+}
+
+.bank-stat-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border: 1px solid #e5efea;
+}
+
+.bank-stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.14);
+}
+
+.bank-stat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 18px;
+}
+
+.bank-stat-info h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #1f3d2b;
+}
+
+.bank-stat-info p {
+    margin: 2px 0 0;
+    font-size: 12.5px;
+    color: #6b7f75;
+}
+
+.bank-stat-info small {
+    font-size: 11px;
+    color: #90a69c;
+}
+
+/* =====================================================
+   ACTION SECTION
+===================================================== */
+.bank-action-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.bank-action-card {
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: box-shadow 0.25s ease;
+    border: 1px solid #e6efea;
+}
+
+.bank-action-card:hover {
+    box-shadow: 0 12px 30px rgba(0,0,0,0.14);
+}
+
+.bank-card-header {
+    padding: 14px 18px;
+    background: #f4faf7;
+    border-bottom: 1px solid #e2ebe7;
+}
+
+.bank-card-header h3 {
+    font-size: 14px;
+    margin: 0;
+    color: #1f5f46;
+}
+
+.bank-card-body {
+    padding: 18px;
+}
+
+/* =====================================================
+   STATUS & DATA
+===================================================== */
+.bank-status-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bank-periode {
+    font-size: 12.5px;
+    color: #6b7f75;
+}
+
+.bank-catatan {
+    background: #fff8e6;
+    border-left: 4px solid #f1c40f;
+    padding: 10px 12px;
+    font-size: 12.5px;
+    border-radius: 6px;
+}
+
+.bank-status-table thead th {
+    background: #f4faf7;
+    color: #1f5f46;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+}
+
+.bank-status-table td {
+    font-size: 13px;
+}
+
+.bank-data-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.bank-data-item {
+    background: #f7fbf9;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 12.5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+.bank-action-buttons {
+    margin-top: 14px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.bank-btn-action {
+    font-size: 12.5px;
+    padding: 7px 14px;
+    border-radius: 20px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bank-btn-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+.bank-btn-info { background: #3498db; color: #fff; }
+.bank-btn-warning { background: #f39c12; color: #fff; }
+.bank-btn-success { background: #2ecc71; color: #fff; }
+.bank-btn-primary { background: #2f7d5a; color: #fff; }
+.bank-btn-secondary { background: #95a5a6; color: #fff; }
+
+.bank-btn-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+/* =====================================================
+   TABLE
+===================================================== */
+.bank-recent-table {
+    overflow-x: auto;
+}
+
+.bank-recent-section {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    border: 1px solid #e6efea;
+    padding: 16px 18px;
+}
+
+.bank-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.bank-section-header h3 {
+    margin: 0;
+    font-size: 15px;
+    color: #1f5f46;
+}
+
+.bank-btn-link {
+    text-decoration: none;
+    color: #2f7d5a;
+    font-weight: 600;
+    font-size: 12.5px;
+}
+
+.bank-btn-link:hover {
+    color: #1f5f46;
+}
+
+.bank-recent-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+}
+
+.bank-recent-table th {
+    background: #f4faf7;
+    color: #1f5f46;
+    padding: 10px;
+    text-align: left;
+}
+
+.bank-recent-table td {
+    padding: 10px;
+    border-bottom: 1px solid #e7efeb;
+}
+
+.bank-recent-table tr:hover {
+    background: #f9fcfb;
+}
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+.bank-empty-state {
+    text-align: center;
+    padding: 26px;
+    color: #6b7f75;
+}
+
+.bank-empty-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+    color: #b0c8bf;
+}
+
+@media (max-width: 992px) {
+    .bank-welcome-section {
+        flex-direction: column;
+    }
+
+    .bank-hero-side {
+        width: 100%;
+        min-width: 0;
+    }
+}

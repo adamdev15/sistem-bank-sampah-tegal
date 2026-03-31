@@ -1,0 +1,375 @@
+/* ============================================
+   TABLE STYLES
+   Tema: Hijau Profesional DLH
+   ============================================ */
+
+/* =========================
+   TABLE CONTAINER
+   ========================= */
+.table-section {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(27, 94, 32, 0.12);
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.table-header {
+    padding: 20px;
+    background: #e8f5e9;
+    border-bottom: 1px solid #c8e6c9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #1f5f46;
+    font-weight: 600;
+}
+
+.table-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* =========================
+   DATA TABLE
+   ========================= */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.data-table thead {
+    background: #2f7d5a;
+    color: #ffffff;
+}
+
+.data-table th {
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid #1f5f46;
+    white-space: nowrap;
+}
+
+.data-table td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #e0e0e0;
+    vertical-align: middle;
+}
+
+.data-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.data-table tbody tr:nth-child(even) {
+    background: #f4f7f5;
+}
+
+.data-table tbody tr:hover {
+    background: #e8f5e9;
+}
+
+.data-table tbody tr.selected {
+    background: #c8e6c9;
+}
+
+/* =========================
+   ACTION COLUMN
+   ========================= */
+.action-column {
+    white-space: nowrap;
+    text-align: center;
+    min-width: 120px;
+}
+
+.action-column a,
+.action-column button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin: 2px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 13px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Action Buttons */
+.btn-view {
+    background: #0277bd;
+    color: #fff;
+}
+.btn-view:hover {
+    background: #01579b;
+    transform: translateY(-1px);
+}
+
+.btn-edit {
+    background: #f9a825;
+    color: #fff;
+}
+.btn-edit:hover {
+    background: #f57f17;
+    transform: translateY(-1px);
+}
+
+.btn-delete {
+    background: #c62828;
+    color: #fff;
+}
+.btn-delete:hover:not(:disabled) {
+    background: #b71c1c;
+    transform: translateY(-1px);
+}
+
+.btn-delete.disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.btn-download {
+    background: #43a047;
+    color: #fff;
+}
+.btn-download:hover {
+    background: #2f7d5a;
+}
+
+.btn-verify {
+    background: #6a1b9a;
+    color: #fff;
+}
+.btn-verify:hover {
+    background: #4a148c;
+}
+
+/* =========================
+   FILTER SECTION
+   ========================= */
+.filter-section {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(27, 94, 32, 0.08);
+}
+
+.filter-row {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+.filter-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #1f5f46;
+    font-size: 13px;
+}
+
+.filter-group input,
+.filter-group select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #c8e6c9;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.filter-group input:focus,
+.filter-group select:focus {
+    outline: none;
+    border-color: #2f7d5a;
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
+}
+
+.filter-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Filter Buttons */
+.btn-filter {
+    background: #2f7d5a;
+    color: #fff;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn-filter:hover {
+    background: #1f5f46;
+}
+
+.btn-reset {
+    background: #78909c;
+    color: #fff;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+.btn-reset:hover {
+    background: #546e7a;
+}
+
+/* =========================
+   SEARCH BOX
+   ========================= */
+.search-box {
+    position: relative;
+    min-width: 280px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 8px 12px 8px 35px;
+    border: 1px solid #c8e6c9;
+    border-radius: 6px;
+}
+
+.search-box .search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #81c784;
+}
+
+/* =========================
+   PAGINATION
+   ========================= */
+.pagination-section {
+    padding: 20px;
+    background: #e8f5e9;
+    border-top: 1px solid #c8e6c9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pagination-info {
+    font-size: 13px;
+    color: #1f5f46;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+}
+
+.pagination li a,
+.pagination li span {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #a5d6a7;
+    text-decoration: none;
+    font-size: 13px;
+    color: #2f7d5a;
+}
+
+.pagination li.active a {
+    background: #2f7d5a;
+    color: #fff;
+    border-color: #2f7d5a;
+}
+
+.pagination li.disabled span {
+    background: #f4f7f5;
+    color: #9e9e9e;
+}
+
+/* =========================
+   EMPTY & LOADING STATE
+   ========================= */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #607d8b;
+}
+
+.empty-state i {
+    font-size: 48px;
+    margin-bottom: 15px;
+    color: #a5d6a7;
+}
+
+.empty-state h4 {
+    margin-bottom: 5px;
+    color: #1f5f46;
+}
+
+.table-loading {
+    position: relative;
+    min-height: 200px;
+}
+
+.table-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 32px;
+    height: 32px;
+    border: 3px solid #c8e6c9;
+    border-top: 3px solid #2f7d5a;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+.table-responsive {
+    overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+    .filter-row {
+        flex-direction: column;
+    }
+
+    .search-box {
+        min-width: 100%;
+    }
+
+    .data-table {
+        font-size: 12px;
+    }
+
+    .pagination-section {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+}

@@ -1,0 +1,321 @@
+/* ======================================================
+   LAPORAN BANK SAMPAH — PROPORSIONAL & AMAN
+====================================================== */
+
+:root {
+    --green-main: #1f5f46;
+    --green-soft: #2f7d5a;
+    --green-light: #eef7f2;
+
+    --text-dark: #1f2933;
+    --text-muted: #6b7280;
+
+    --radius: 14px;
+    --shadow-soft: 0 4px 14px rgba(0,0,0,.06);
+}
+
+/* ======================================================
+   CONTAINER UTAMA (PALING PENTING)
+====================================================== */
+.laporan-index-container,
+.laporan-create-container,
+.laporan-edit-container,
+.laporan-show-container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 14px 14px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* PAKSA SEMUA SECTION NURUT LEBAR CONTAINER */
+.laporan-index-container > *,
+.laporan-edit-container > *,
+.laporan-show-container > * {
+    max-width: 100%;
+}
+
+/* ======================================================
+   PAGE HEADER
+====================================================== */
+.page-header {
+    background: linear-gradient(135deg, var(--green-main), var(--green-soft));
+    color: #fff;
+    padding: 20px 24px;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow-soft);
+}
+
+.page-header h1 {
+    font-size: 20px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.page-header p {
+    font-size: 13px;
+    margin-top: 4px;
+    opacity: .9;
+}
+
+/* ======================================================
+   STAT CARDS (RAPIH, TIDAK TURUN KE BAWAH)
+====================================================== */
+.stats-cards {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    gap: 16px;
+}
+
+.stat-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid #e4eee9;
+}
+
+.stat-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.stat-content h3 {
+    font-size: 20px;
+    margin: 0;
+}
+
+.stat-content p {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.stat-icon.bg-primary,
+.btn-primary,
+.btn-outline-primary:hover {
+    background: linear-gradient(135deg, var(--green-main), var(--green-soft)) !important;
+    border-color: var(--green-main) !important;
+}
+
+.stat-icon.bg-success {
+    background: #2f7d5a !important;
+}
+
+.stat-icon.bg-warning {
+    background: #d97706 !important;
+}
+
+.stat-icon.bg-danger {
+    background: #b91c1c !important;
+}
+
+.btn-outline-primary {
+    color: var(--green-main) !important;
+    border-color: var(--green-main) !important;
+}
+
+/* ======================================================
+   CURRENT MONTH
+====================================================== */
+.current-month-section {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow-soft);
+}
+
+.current-report-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--green-light);
+    padding: 16px 18px;
+    border-radius: 12px;
+}
+
+/* ======================================================
+   FILTER — DIKUNCI AGAR TIDAK LEBIH PANJANG
+====================================================== */
+.filter-section {
+    background: #fff;
+    padding: 20px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+}
+
+.filter-section .row {
+    margin: 0;
+}
+
+.filter-section .col-md-2,
+.filter-section .col-md-3,
+.filter-section .col-md-4 {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.filter-section .btn-group {
+    max-width: 140px;
+    margin: 0 auto;
+}
+
+/* ======================================================
+   TABLE
+====================================================== */
+.table-section {
+    background: #fff;
+    padding: 20px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.table-header h3 {
+    font-size: 16px;
+    margin: 0;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    font-size: 12.5px;
+    color: var(--green-main);
+    background: #f4faf7;
+}
+
+.table td {
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.laporan-show-container .card,
+.laporan-edit-container .card {
+    border: 1px solid #e4eee9;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+}
+
+.laporan-show-container .card-header {
+    background: #f4faf7;
+    border-bottom: 1px solid #e4eee9;
+}
+
+.laporan-show-container .section-title {
+    font-size: 16px;
+    color: var(--green-main);
+    margin-bottom: 12px;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 999px;
+}
+
+.status-menunggu-verifikasi {
+    background: #fff8e1;
+    color: #8d6e00;
+}
+
+.status-disetujui {
+    background: #e8f5e9;
+    color: #1f5f46;
+}
+
+.status-perlu-perbaikan {
+    background: #fdecea;
+    color: #b71c1c;
+}
+
+.laporan-show-container .info-section {
+    background: #fff;
+    border: 1px solid #e4eee9;
+    border-radius: 12px;
+    padding: 14px;
+    height: 100%;
+}
+
+/* ======================================================
+   ACTION BUTTONS — TENGAH & RAPI
+====================================================== */
+.action-buttons,
+.form-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+}
+
+/* ======================================================
+   SHOW PAGE
+====================================================== */
+.info-box {
+    background: #f8faf9;
+    padding: 16px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.info-label {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.info-value {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+@media (max-width: 992px) {
+    .stats-cards {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .stats-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
