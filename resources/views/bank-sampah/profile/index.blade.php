@@ -148,9 +148,6 @@
                                     <i class="fas fa-save"></i> Simpan Perubahan
                                 </button>
 
-                                <a href="#password-section" class="btn btn-outline-secondary ms-2">
-                                    <i class="fas fa-key"></i> Ganti Password
-                                </a>
                             </div>
                         </form>
 
@@ -160,39 +157,6 @@
 
         </div>
 
-    {{-- ================= PASSWORD SECTION ================= --}}
-    <div class="card mt-4" id="password-section">
-        <div class="card-header">
-            <h4><i class="fas fa-key"></i> Ganti Password</h4>
-        </div>
-        <div class="card-body">
-            <form method="POST" action="{{ route('bank-sampah.profile.update') }}">
-                @csrf
-                @method('PUT')
-
-                <div class="form-group">
-                    <label>Password Saat Ini</label>
-                    <input type="password" name="current_password" class="form-control">
-                </div>
-
-                <div class="form-group">
-                    <label>Password Baru</label>
-                    <input type="password" name="new_password" class="form-control">
-                </div>
-
-                <div class="form-group">
-                    <label>Konfirmasi Password Baru</label>
-                    <input type="password" name="new_password_confirmation" class="form-control">
-                </div>
-
-                <div class="form-actions">
-                    <button class="btn btn-primary">
-                        <i class="fas fa-key"></i> Ganti Password
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
 
 </div>
 @endsection
