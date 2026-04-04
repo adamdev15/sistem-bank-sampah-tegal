@@ -9,6 +9,9 @@
 @endsection
 
 @section('content-body')
+@php
+    $fmtKg = fn ($v) => rtrim(rtrim(number_format((float) $v, 2, '.', ''), '0'), '.');
+@endphp
 <div class="data-container">
     <div class="form-header">
         <h2 class="text-white"><i class="fas fa-pen-to-square"></i> Edit Laporan Bulanan</h2>
@@ -47,7 +50,7 @@
                     <div class="input-group">
                         <input type="text" id="jumlah_sampah_masuk" name="jumlah_sampah_masuk"
                             class="form-control @error('jumlah_sampah_masuk') is-invalid @enderror"
-                            value="{{ old('jumlah_sampah_masuk', $laporan->jumlah_sampah_masuk) }}"
+                            value="{{ old('jumlah_sampah_masuk') !== null ? old('jumlah_sampah_masuk') : $fmtKg($laporan->jumlah_sampah_masuk) }}"
                             required inputmode="decimal" onfocus="clearZeroValue(this)"
                             oninput="normalizeNumber(this); validateTerkelola()">
                         <span class="input-unit">kg</span>
@@ -62,7 +65,7 @@
                     <div class="input-group">
                         <input type="text" id="jumlah_sampah_terkelola" name="jumlah_sampah_terkelola"
                             class="form-control @error('jumlah_sampah_terkelola') is-invalid @enderror"
-                            value="{{ old('jumlah_sampah_terkelola', $laporan->jumlah_sampah_terkelola) }}"
+                            value="{{ old('jumlah_sampah_terkelola') !== null ? old('jumlah_sampah_terkelola') : $fmtKg($laporan->jumlah_sampah_terkelola) }}"
                             required inputmode="decimal" onfocus="clearZeroValue(this)"
                             oninput="normalizeNumber(this); validateTerkelola()">
                         <span class="input-unit">kg</span>
@@ -116,7 +119,7 @@
                         <input type="text" id="rincian_{{ $key }}"
                             name="rincian_sampah[{{ $key }}]"
                             class="rincian-input"
-                            value="{{ old("rincian_sampah.$key", $rincian[$key] ?? '') }}"
+                            value="{{ old("rincian_sampah.$key") !== null ? old("rincian_sampah.$key") : (isset($rincian[$key]) && $rincian[$key] !== '' && $rincian[$key] !== null ? $fmtKg($rincian[$key]) : '') }}"
                             inputmode="decimal" placeholder="0"
                             onfocus="clearZeroValue(this)"
                             oninput="normalizeNumber(this); calculateTotal()">
@@ -151,8 +154,8 @@
 </div>
 
 <script>
-let sampahMasuk = {{ old('jumlah_sampah_masuk', $laporan->jumlah_sampah_masuk) }};
-let sampahTerkelola = {{ old('jumlah_sampah_terkelola', $laporan->jumlah_sampah_terkelola) }};
+let sampahMasuk = {{ (float) $laporan->jumlah_sampah_masuk }};
+let sampahTerkelola = {{ (float) $laporan->jumlah_sampah_terkelola }};
 let totalRincian = 0;
 
 function normalizeNumber(input) {

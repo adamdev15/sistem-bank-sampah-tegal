@@ -4,6 +4,7 @@ namespace App\Http\Requests\Auth;
 
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
 class RegisterRequest extends FormRequest
@@ -38,7 +39,11 @@ class RegisterRequest extends FormRequest
                 },
             ],
             'password' => ['required', 'confirmed', Password::defaults()],
-            'bank_sampah_master_id' => ['required', 'exists:bank_sampah_masters,id']
+            'bank_sampah_master_id' => [
+                'required',
+                'exists:bank_sampah_masters,id',
+                Rule::unique('users', 'bank_sampah_master_id')->where(fn ($q) => $q->whereNull('deleted_at')),
+            ],
         ];
     }
 
@@ -46,7 +51,8 @@ class RegisterRequest extends FormRequest
     {
         return [
             'bank_sampah_master_id.required' => 'Pilih bank sampah yang sesuai.',
-            'bank_sampah_master_id.exists' => 'Bank sampah tidak valid.'
+            'bank_sampah_master_id.exists' => 'Bank sampah tidak valid.',
+            'bank_sampah_master_id.unique' => 'Bank sampah ini sudah memiliki akun terdaftar.',
         ];
     }
 }

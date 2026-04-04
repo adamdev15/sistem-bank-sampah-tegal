@@ -99,16 +99,29 @@
             </div>
             
             <!-- Informasi Laporan -->
-            <div class="row mt-4">
-                <div class="col-md-6">
+            <div class="mt-4">
                     <div class="info-section">
                         <h5><i class="fas fa-info-circle"></i> Informasi Laporan</h5>
                         <table class="table table-sm">
                             <tr>
                                 <td width="40%">Tanggal Dibuat</td>
                                 <td>{{ $laporan->created_at->translatedFormat('d F Y H:i') }}</td>
+                                <td>Efisiensi Pengelolaan</td>
+                                <td>
+                                @php
+                                        $efisiensi = $totalSampah > 0 ? ($laporan->jumlah_sampah_terkelola / $laporan->jumlah_sampah_masuk * 100) : 0;
+                                    @endphp
+                                    {{ $fmt($efisiensi) }}%
+                                </td>
                             </tr>
                             <tr>
+                                <td>Sampah Tersisa</td>
+                                <td>
+                                    @php
+                                        $sisa = $laporan->jumlah_sampah_masuk - $laporan->jumlah_sampah_terkelola;
+                                    @endphp
+                                    {{ $fmt($sisa) }} kg
+                                </td>
                                 <td>Terakhir Diupdate</td>
                                 <td>{{ $laporan->updated_at->translatedFormat('d F Y H:i') }}</td>
                             </tr>
@@ -120,36 +133,10 @@
                                     </span>
                                 </td>
                             </tr>
+
                         </table>
                     </div>
-                </div>
-                
-                <div class="col-md-6">
-                    <div class="info-section">
-                        <h5><i class="fas fa-chart-pie"></i> Statistik</h5>
-                        <div class="stats-grid">
-                            <div class="stat-item">
-                                <div class="stat-label">Efisiensi Pengelolaan</div>
-                                <div class="stat-value">
-                                    @php
-                                        $efisiensi = $totalSampah > 0 ? ($laporan->jumlah_sampah_terkelola / $laporan->jumlah_sampah_masuk * 100) : 0;
-                                    @endphp
-                                    {{ $fmt($efisiensi) }}%
-                                </div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-label">Sampah Tersisa</div>
-                                <div class="stat-value">
-                                    @php
-                                        $sisa = $laporan->jumlah_sampah_masuk - $laporan->jumlah_sampah_terkelola;
-                                    @endphp
-                                    {{ $fmt($sisa) }} kg
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
             
             <!-- Actions -->
             <div class="action-buttons mt-4">

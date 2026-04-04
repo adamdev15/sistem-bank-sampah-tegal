@@ -5,143 +5,166 @@
 
 @section('styles')
 <link href="{{ asset('css/export.css') }}" rel="stylesheet">
+<style>
+.export-single-page .export-type-card-v2 {
+    border: 2px solid #e3ece7;
+    border-radius: 14px;
+    padding: 20px 18px;
+    cursor: pointer;
+    transition: border-color .2s, box-shadow .2s, transform .2s, background .2s;
+    background: linear-gradient(180deg, #fbfcfb 0%, #fff 55%);
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.export-single-page .export-type-card-v2::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, #1f5f46, #2f7d5a);
+    opacity: 0;
+    transition: opacity .2s;
+}
+.export-single-page .export-type-card-v2:hover {
+    border-color: #2f7d5a;
+    box-shadow: 0 10px 28px rgba(31, 95, 70, 0.12);
+    transform: translateY(-3px);
+}
+.export-single-page .export-type-card-v2.active {
+    border-color: #1f5f46;
+    background: #f4faf7;
+    box-shadow: 0 8px 22px rgba(31, 95, 70, 0.14);
+}
+.export-single-page .export-type-card-v2.active::before { opacity: 1; }
+.export-single-page .export-type-card-v2 input { position: absolute; opacity: 0; pointer-events: none; }
+.export-single-page .etc-icon-v2 {
+    width: 52px; height: 52px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 1.25rem;
+    background: linear-gradient(135deg, #1f5f46, #2f7d5a);
+    flex-shrink: 0;
+}
+.export-single-page .etc-body-v2 h4 { font-size: 1rem; font-weight: 700; color: #1f3d2b; margin: 0 0 6px; }
+.export-single-page .etc-body-v2 p { font-size: 0.82rem; color: #5d7268; margin: 0 0 10px; }
+.export-single-page .etc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.export-single-page .etc-tags span {
+    font-size: 0.68rem; padding: 4px 8px; border-radius: 6px;
+    background: #e8f5e9; color: #1f5f46; font-weight: 600;
+}
+.export-single-page .format-row-v2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 576px) { .export-single-page .format-row-v2 { grid-template-columns: 1fr; } }
+</style>
 @endsection
 
 @section('content-body')
-<div class="data-container">
-    <!-- Main Form -->
+<div class="data-container export-single-page">
     <div class="export-form-wrapper">
-        <div class="form-card">
-            <div class="card-header text-white" style="background: linear-gradient(180deg, #1f5f46 0%, #198754 100%);">
+        <div class="form-card border-0 shadow-sm">
+            <div class="card-header text-white border-0 rounded-top" style="background: linear-gradient(135deg, #1f5f46 0%, #2f7d5a 100%);">
                 <div class="header-content">
-                    <h1><i class="fas fa-file-export"></i> Export Data</h1>
-                    <p class="subtitle">Sistem BASMAN - Bank Sampah Management System</p>
-                    <p class="description">Pilih jenis data dan format export untuk mendownload data dalam format Excel atau PDF</p>
-                </div>
-                <div class="export-steps">
-                    <button type="button" class="step-item active" data-step-nav="1"><i class="fas fa-database"></i> 1. Pilih Data</button>
-                    <button type="button" class="step-item" data-step-nav="2"><i class="fas fa-file-export"></i> 2. Pilih Format</button>
-                    <button type="button" class="step-item" data-step-nav="3"><i class="fas fa-filter"></i> 3. Atur Filter</button>
+                    <h1 class="h4 mb-2"><i class="fas fa-file-export me-2"></i>Export Data</h1>
+                    <p class="subtitle mb-1 opacity-90">BASMAN — Bank Sampah Management System</p>
                 </div>
             </div>
-            
+
             <form method="POST" action="{{ route('admin.export.generate') }}" id="exportForm" class="export-form">
                 @csrf
 
-                <!-- Jenis Data -->
-                <div class="form-section wizard-step active" data-step="1">
+                <div class="form-section border-bottom pb-4 mb-4">
+                    <div class="section-header mb-3">
+                        <h3 class="h5 mb-1"><i class="fas fa-database me-2 text-success"></i>Jenis data</h3>
+                        <p class="section-description mb-0 small">Tiga kategori utama ekspor BASMAN</p>
+                    </div>
                     <div class="radio-group-grid">
-                        <div class="radio-card active" onclick="selectRadio('master')">
-                            <input type="radio" id="type_master" name="type" value="master" checked>
-                            <div class="radio-content">
-                                <div class="radio-icon">
-                                    <i class="fas fa-university"></i>
-                                </div>
-                                <div class="radio-info">
+                        <label class="export-type-card-v2 active" data-type-card="master">
+                            <input type="radio" name="type" value="master" checked>
+                            <div class="d-flex gap-3 align-items-start">
+                                <div class="etc-icon-v2"><i class="fas fa-university"></i></div>
+                                <div class="etc-body-v2 flex-grow-1">
                                     <h4>Data Master Bank Sampah</h4>
-                                    <p>Data identitas bank sampah (Sheet 1)</p>
-                                    <div class="feature-list">
-                                        <div><i class="fas fa-check"></i> Nama bank sampah</div>
-                                        <div><i class="fas fa-check"></i> Lokasi & kontak</div>
-                                        <div><i class="fas fa-check"></i> Status terbentuk</div>
+                                    <p>Identitas, lokasi, dan status terbentuk (Sheet 1).</p>
+                                    <div class="etc-tags">
+                                        <span>Identitas</span><span>Lokasi</span><span>Kontak</span>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="radio-card" onclick="selectRadio('operasional')">
-                            <input type="radio" id="type_operasional" name="type" value="operasional">
-                            <div class="radio-content">
-                                <div class="radio-icon">
-                                    <i class="fas fa-chart-line"></i>
-                                </div>
-                                <div class="radio-info">
+                        </label>
+                        <label class="export-type-card-v2" data-type-card="operasional">
+                            <input type="radio" name="type" value="operasional">
+                            <div class="d-flex gap-3 align-items-start">
+                                <div class="etc-icon-v2"><i class="fas fa-chart-line"></i></div>
+                                <div class="etc-body-v2 flex-grow-1">
                                     <h4>Data Operasional</h4>
-                                    <p>Data kegiatan operasional bank sampah (Sheet 2)</p>
-                                    <div class="feature-list">
-                                        <div><i class="fas fa-check"></i> Tenaga kerja & nasabah</div>
-                                        <div><i class="fas fa-check"></i> Omset & penjualan</div>
-                                        <div><i class="fas fa-check"></i> Sarana & prasarana</div>
+                                    <p>Tenaga kerja, nasabah, omset, sarana (Sheet 2).</p>
+                                    <div class="etc-tags">
+                                        <span>SDM</span><span>Keuangan</span><span>Prasarana</span>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="radio-card" onclick="selectRadio('laporan')">
-                            <input type="radio" id="type_laporan" name="type" value="laporan">
-                            <div class="d-flex align-items-center gap-2">
-                                <div class="radio-icon">
-                                    <i class="fas fa-file-alt"></i>
-                                </div>
-                                <div class="radio-info">
+                        </label>
+                        <label class="export-type-card-v2" data-type-card="laporan">
+                            <input type="radio" name="type" value="laporan">
+                            <div class="d-flex gap-3 align-items-start">
+                                <div class="etc-icon-v2"><i class="fas fa-file-alt"></i></div>
+                                <div class="etc-body-v2 flex-grow-1">
                                     <h4>Laporan Bulanan</h4>
-                                    <p>Data laporan sampah bulanan (Sheet 3)</p>
-                                    <div class="feature-list">
-                                        <div><i class="fas fa-check"></i> Sampah masuk & terkelola</div>
-                                        <div><i class="fas fa-check"></i> Rincian jenis sampah</div>
-                                        <div><i class="fas fa-check"></i> Jumlah nasabah</div>
+                                    <p>Rekap sampah masuk/terkelola dan rincian jenis (Sheet 3).</p>
+                                    <div class="etc-tags">
+                                        <span>Masuk</span><span>Terkelola</span><span>Rincian</span>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </label>
                     </div>
                 </div>
 
-                <!-- Format Export -->
-                <div class="form-section wizard-step" data-step="2">
-                    <div class="format-options">
+                <div class="form-section border-bottom pb-4 mb-4">
+                    <div class="section-header mb-3">
+                        <h3 class="h5 mb-1"><i class="fas fa-file-export me-2 text-success"></i>Format file</h3>
+                        <p class="section-description mb-0 small">Excel untuk analisis; PDF untuk cetak</p>
+                    </div>
+                    <div class="format-row-v2">
                         <div class="format-option active" onclick="selectFormat('excel')">
                             <input type="radio" id="format_excel" name="format" value="excel" checked>
                             <div class="format-content">
-                                <div class="format-icon excel">
-                                    <i class="fas fa-file-excel"></i>
-                                </div>
+                                <div class="format-icon excel"><i class="fas fa-file-excel"></i></div>
                                 <div class="format-info">
-                                    <h4 class="format-title-row">Excel (.xlsx) <span class="format-badge">Rekomendasi</span></h4>
-                                    <p>Microsoft Excel - Format spreadsheet</p>
+                                    <h4 class="format-title-row">Excel <span class="format-badge">.xlsx</span></h4>
+                                    <p class="small mb-0">Spreadsheet, disarankan untuk data besar</p>
                                 </div>
                             </div>
                         </div>
-
                         <div class="format-option" onclick="selectFormat('pdf')">
                             <input type="radio" id="format_pdf" name="format" value="pdf">
                             <div class="format-content">
-                                <div class="format-icon pdf">
-                                    <i class="fas fa-file-pdf"></i>
-                                </div>
+                                <div class="format-icon pdf"><i class="fas fa-file-pdf"></i></div>
                                 <div class="format-info">
-                                    <h4 class="format-title-row">PDF (.pdf) <span class="format-badge">Cetak</span></h4>
-                                    <p>Portable Document Format</p>
+                                    <h4 class="format-title-row">PDF <span class="format-badge">.pdf</span></h4>
+                                    <p class="small mb-0">Dokumen siap cetak / arsip</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Filter Data -->
-                <div class="form-section wizard-step" data-step="3">
-                    
+                <div class="form-section mb-0">
+                    <div class="section-header mb-3">
+                        <h3 class="h5 mb-1"><i class="fas fa-filter me-2 text-success"></i>Filter</h3>
+                        <p class="section-description mb-0 small">Filter tanggal hanya berlaku untuk laporan bulanan</p>
+                    </div>
                     <div class="filter-grid">
-                        <!-- Filter Kecamatan -->
                         <div class="filter-group">
-                            <label for="kecamatan_id">
-                                <i class="fas fa-map-marker-alt"></i> Pilih Kecamatan
-                            </label>
+                            <label for="kecamatan_id"><i class="fas fa-map-marker-alt me-1"></i> Kecamatan</label>
                             <select name="kecamatan_id" id="kecamatan_id" class="form-select">
                                 <option value="">Semua Kecamatan</option>
                                 @foreach($kecamatans as $kecamatan)
-                                    <option value="{{ $kecamatan->id }}">
-                                        {{ $kecamatan->nama_kecamatan }}
-                                    </option>
+                                    <option value="{{ $kecamatan->id }}">{{ $kecamatan->nama_kecamatan }}</option>
                                 @endforeach
                             </select>
                         </div>
-
-                        <!-- Filter Tahun (hanya untuk laporan) -->
                         <div class="filter-group" id="year-filter" style="display: none;">
-                            <label for="tahun">
-                                <i class="fas fa-calendar"></i> Tahun Laporan
-                            </label>
+                            <label for="tahun"><i class="fas fa-calendar me-1"></i> Tahun laporan</label>
                             <select name="tahun" id="tahun" class="form-select">
                                 <option value="">Semua Tahun</option>
                                 @foreach($years as $year)
@@ -149,46 +172,26 @@
                                 @endforeach
                             </select>
                         </div>
-
-                        <!-- Filter Tanggal (hanya untuk laporan) -->
                         <div class="filter-group date-group" id="date-start-filter" style="display: none;">
-                            <label for="start_date">
-                                <i class="fas fa-calendar-alt"></i> Tanggal Mulai
-                            </label>
-                            <input type="month" name="start_date" id="start_date" 
-                                   class="form-control"
-                                   min="2023-01" max="{{ date('Y-m') }}">
+                            <label for="start_date"><i class="fas fa-calendar-alt me-1"></i> Periode mulai</label>
+                            <input type="month" name="start_date" id="start_date" class="form-control" min="2023-01" max="{{ date('Y-m') }}">
                         </div>
-                        
                         <div class="filter-group date-group" id="date-end-filter" style="display: none;">
-                            <label for="end_date">
-                                <i class="fas fa-calendar-alt"></i> Tanggal Akhir
-                            </label>
-                            <input type="month" name="end_date" id="end_date" 
-                                   class="form-control"
-                                   min="2023-01" max="{{ date('Y-m') }}">
+                            <label for="end_date"><i class="fas fa-calendar-alt me-1"></i> Periode akhir</label>
+                            <input type="month" name="end_date" id="end_date" class="form-control" min="2023-01" max="{{ date('Y-m') }}">
                         </div>
                     </div>
                 </div>
 
-                <!-- Form Actions -->
-                <div class="form-actions">
-                    <div class="action-info">
+                <div class="form-actions mt-4 pt-3 border-top">
+                    <div class="action-info mb-3 mb-md-0">
                         <i class="fas fa-info-circle"></i>
-                        <p>Pastikan semua pengaturan sudah sesuai sebelum mengeksekusi export</p>
+                        <p class="mb-0 small">Periksa jenis data dan format sebelum generate.</p>
                     </div>
                     <div class="action-buttons">
-                        <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary" id="cancelButton">
-                            <i class="fas fa-times"></i> Batal
-                        </a>
-                        <button type="button" class="btn btn-outline-secondary" id="prevStepButton" style="display:none;">
-                            <i class="fas fa-arrow-left"></i> Sebelumnya
-                        </button>
-                        <button type="button" class="btn btn-primary" id="nextStepButton">
-                            Selanjutnya <i class="fas fa-arrow-right"></i>
-                        </button>
-                        <button type="submit" class="btn btn-primary" id="exportButton" style="display:none;">
-                            <i class="fas fa-download"></i> Generate Export
+                        <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-secondary"><i class="fas fa-times me-1"></i> Batal</a>
+                        <button type="submit" class="btn btn-success" id="exportButton">
+                            <i class="fas fa-download me-1"></i> Generate export
                         </button>
                     </div>
                 </div>
@@ -196,270 +199,77 @@
         </div>
     </div>
 
-    <!-- Success/Error Messages -->
     @if(session('success'))
-        <div class="alert alert-success">
-            <i class="fas fa-check-circle"></i> {{ session('success') }}
-        </div>
+        <div class="alert alert-success mt-3"><i class="fas fa-check-circle me-2"></i>{{ session('success') }}</div>
     @endif
-    
     @if(session('error'))
-        <div class="alert alert-error">
-            <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
-        </div>
+        <div class="alert alert-danger mt-3"><i class="fas fa-exclamation-circle me-2"></i>{{ session('error') }}</div>
     @endif
-
 </div>
 
 <script>
-// ============================================
-// SIMPLE JAVASCRIPT - TANPA LOADING COMPLEX
-// ============================================
-
-// Fungsi untuk select radio card
-function selectRadio(type) {
-    // Uncheck semua radio
-    document.querySelectorAll('input[name="type"]').forEach(radio => {
-        radio.checked = false;
-    });
-    
-    // Check yang dipilih
-    document.getElementById(`type_${type}`).checked = true;
-    
-    // Update active state
-    document.querySelectorAll('.radio-card').forEach(card => {
-        card.classList.remove('active');
-    });
-    document.querySelector(`[onclick="selectRadio('${type}')"]`).classList.add('active');
-    
-    // Toggle filters
-    toggleFilters();
-}
-
-// Fungsi untuk select format
 function selectFormat(format) {
-    // Uncheck semua
-    document.querySelectorAll('input[name="format"]').forEach(radio => {
-        radio.checked = false;
-    });
-    
-    // Check yang dipilih
-    document.getElementById(`format_${format}`).checked = true;
-    
-    // Update active state
-    document.querySelectorAll('.format-option').forEach(option => {
-        option.classList.remove('active');
-    });
-    document.querySelector(`[onclick="selectFormat('${format}')"]`).classList.add('active');
+    document.querySelectorAll('input[name="format"]').forEach(r => { r.checked = false; });
+    document.getElementById('format_' + format).checked = true;
+    document.querySelectorAll('.format-option').forEach(o => o.classList.remove('active'));
+    document.querySelector(`[onclick="selectFormat('${format}')"]`)?.classList.add('active');
 }
 
-// Toggle filters berdasarkan jenis data
 function toggleFilters() {
-    const type = document.querySelector('input[name="type"]:checked').value;
-    
-    // Reset semua filter
-    document.getElementById('year-filter').style.display = 'none';
-    document.querySelectorAll('.date-group').forEach(el => {
-        el.style.display = 'none';
-    });
-    
-    // Tampilkan filter untuk laporan
-    if (type === 'laporan') {
-        document.getElementById('year-filter').style.display = 'block';
-        document.querySelectorAll('.date-group').forEach(el => {
-            el.style.display = 'block';
-        });
-    }
-}
-
-// Date range validation
-function setupDateValidation() {
-    const startDate = document.getElementById('start_date');
-    const endDate = document.getElementById('end_date');
-    
-    if (startDate && endDate) {
-        startDate.addEventListener('change', function() {
-            if (this.value) {
-                endDate.min = this.value;
-                if (endDate.value && endDate.value < this.value) {
-                    endDate.value = this.value;
-                }
-            }
-        });
-        
-        endDate.addEventListener('change', function() {
-            if (this.value) {
-                startDate.max = this.value;
-                if (startDate.value && startDate.value > this.value) {
-                    startDate.value = this.value;
-                }
-            }
-        });
-    }
-}
-
-// Simple form submission - hanya disable button sebentar
-function setupFormSubmission() {
-    const form = document.getElementById('exportForm');
-    const exportButton = document.getElementById('exportButton');
-    let isSubmitting = false;
-    
-    form.addEventListener('submit', function(e) {
-        if (isSubmitting) {
-            e.preventDefault();
-            return;
-        }
-        
-        // Validasi sederhana untuk date range
-        const startDate = document.getElementById('start_date');
-        const endDate = document.getElementById('end_date');
-        const type = document.querySelector('input[name="type"]:checked').value;
-        
-        if (type === 'laporan' && startDate && endDate) {
-            if (startDate.value && endDate.value && startDate.value > endDate.value) {
-                e.preventDefault();
-                alert('Tanggal mulai tidak boleh lebih besar dari tanggal akhir');
-                return;
-            }
-        }
-        
-        // Disable button untuk mencegah double click
-        isSubmitting = true;
-        exportButton.disabled = true;
-        exportButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-        
-        // Auto enable setelah 5 detik (jika masih stuck)
-        setTimeout(() => {
-            isSubmitting = false;
-            exportButton.disabled = false;
-            exportButton.innerHTML = '<i class="fas fa-download"></i> Generate Export';
-        }, 5000);
+    const type = document.querySelector('input[name="type"]:checked')?.value;
+    const show = type === 'laporan';
+    ['year-filter', 'date-start-filter', 'date-end-filter'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = show ? 'block' : 'none';
     });
 }
 
-// Initialize everything when page loads
-document.addEventListener('DOMContentLoaded', function() {
-    let currentStep = 1;
-
-    function renderWizardStep(step) {
-        currentStep = step;
-
-        document.querySelectorAll('.wizard-step').forEach(section => {
-            section.classList.toggle('active', Number(section.dataset.step) === step);
-        });
-
-        document.querySelectorAll('[data-step-nav]').forEach(item => {
-            item.classList.toggle('active', Number(item.dataset.stepNav) === step);
-        });
-
-        const prevBtn = document.getElementById('prevStepButton');
-        const nextBtn = document.getElementById('nextStepButton');
-        const submitBtn = document.getElementById('exportButton');
-
-        prevBtn.style.display = step > 1 ? 'inline-flex' : 'none';
-        nextBtn.style.display = step < 3 ? 'inline-flex' : 'none';
-        submitBtn.style.display = step === 3 ? 'inline-flex' : 'none';
-    }
-
-    document.getElementById('nextStepButton').addEventListener('click', function () {
-        if (currentStep < 3) {
-            renderWizardStep(currentStep + 1);
-        }
-    });
-
-    document.getElementById('prevStepButton').addEventListener('click', function () {
-        if (currentStep > 1) {
-            renderWizardStep(currentStep - 1);
-        }
-    });
-
-    document.querySelectorAll('[data-step-nav]').forEach(item => {
-        item.addEventListener('click', function () {
-            const target = Number(this.dataset.stepNav);
-            renderWizardStep(target);
-        });
-    });
-
-    // Set initial state
-    toggleFilters();
-    renderWizardStep(1);
-    
-    // Setup form submission
-    setupFormSubmission();
-    
-    // Setup date validation
-    setupDateValidation();
-    
-    // Add some visual feedback
-    document.querySelectorAll('.radio-card, .format-option').forEach(element => {
-        element.addEventListener('click', function() {
-            // Small visual feedback
-            this.style.transform = 'scale(0.98)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 150);
-        });
+document.querySelectorAll('.export-type-card-v2').forEach(card => {
+    card.addEventListener('click', function () {
+        const input = this.querySelector('input[name="type"]');
+        if (input) input.checked = true;
+        document.querySelectorAll('.export-type-card-v2').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        toggleFilters();
     });
 });
 
-// Simple helper untuk format angka (jika diperlukan nanti)
-function formatNumber(num) {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-}
+document.addEventListener('DOMContentLoaded', function () {
+    toggleFilters();
+
+    const startDate = document.getElementById('start_date');
+    const endDate = document.getElementById('end_date');
+    if (startDate && endDate) {
+        startDate.addEventListener('change', function () {
+            if (this.value) {
+                endDate.min = this.value;
+                if (endDate.value && endDate.value < this.value) endDate.value = this.value;
+            }
+        });
+        endDate.addEventListener('change', function () {
+            if (this.value) {
+                startDate.max = this.value;
+                if (startDate.value && startDate.value > this.value) startDate.value = this.value;
+            }
+        });
+    }
+
+    const form = document.getElementById('exportForm');
+    const exportButton = document.getElementById('exportButton');
+    form.addEventListener('submit', function (e) {
+        const type = document.querySelector('input[name="type"]:checked')?.value;
+        if (type === 'laporan' && startDate && endDate && startDate.value && endDate.value && startDate.value > endDate.value) {
+            e.preventDefault();
+            alert('Periode mulai tidak boleh lebih besar dari periode akhir.');
+            return;
+        }
+        exportButton.disabled = true;
+        exportButton.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Memproses…';
+        setTimeout(() => {
+            exportButton.disabled = false;
+            exportButton.innerHTML = '<i class="fas fa-download me-1"></i> Generate export';
+        }, 5000);
+    });
+});
 </script>
-
-<style>
-/* Tambahan kecil untuk button disabled state */
-.btn-primary:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-}
-
-/* Feature list styling */
-.feature-list {
-    margin-top: 10px;
-}
-
-.feature-list div {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 5px;
-    font-size: 12px;
-    color: #5d6d7e;
-}
-
-.feature-list div i {
-    color: #2ecc71;
-    font-size: 10px;
-}
-
-/* Smooth transitions */
-.radio-card,
-.format-option,
-.btn,
-.filter-group select,
-.filter-group input {
-    transition: all 0.2s ease;
-}
-
-/* Focus styles untuk accessibility */
-.form-select:focus,
-.form-control:focus {
-    outline: 2px solid #3498db;
-    outline-offset: 2px;
-}
-
-/* Responsive tweaks untuk mobile */
-@media (max-width: 576px) {
-    .action-buttons {
-        flex-direction: column;
-        width: 100%;
-    }
-    
-    .action-buttons .btn {
-        width: 100%;
-    }
-}
-</style>
 @endsection

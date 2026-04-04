@@ -83,14 +83,13 @@
                            value="{{ request('search') }}">
                 </div>
 
-                <div class="col-md-2 d-flex align-items-end">
-                    <div class="btn-group w-100">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-filter"></i>
+                <div class="col-12 col-md-2 d-flex align-items-end">
+                    <div class="d-flex flex-column gap-2 w-100">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-filter me-1"></i> filter
                         </button>
-                        <a href="{{ route('bank-sampah.laporan.index') }}"
-                           class="btn btn-secondary">
-                            <i class="fas fa-redo"></i>
+                        <a href="{{ route('bank-sampah.laporan.index') }}" class="btn btn-outline-secondary w-100">
+                            <i class="fas fa-undo me-1"></i> Reset
                         </a>
                     </div>
                 </div>
@@ -162,13 +161,13 @@
                             <td class="text-center">
                                 <div class="action-buttons">
                                     <a href="{{ route('bank-sampah.laporan.show',$laporan->id) }}"
-                                       class="btn btn-sm btn-info">
+                                       class="btn btn-sm" style="background: #0277bd; color: #fff;">
                                         <i class="fas fa-eye"></i>
                                     </a>
 
                                     @if($laporan->status !== 'disetujui')
                                         <a href="{{ route('bank-sampah.laporan.edit',$laporan->id) }}"
-                                           class="btn btn-sm btn-warning">
+                                           class="btn btn-sm" style="background: #f9a825; color: #fff;">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                     @endif

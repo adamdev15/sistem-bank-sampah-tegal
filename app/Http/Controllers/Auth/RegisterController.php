@@ -16,8 +16,8 @@ class RegisterController extends Controller
 {
     public function showRegistrationForm()
     {
-        $bankSampahs = BankSampahMaster::whereDoesntHave('user')
-            ->with(['kecamatan', 'kelurahan'])
+        $bankSampahs = BankSampahMaster::with(['kecamatan', 'kelurahan', 'user'])
+            ->orderBy('nama_bank_sampah')
             ->get()
             ->groupBy(function ($item) {
                 return $item->kecamatan->nama_kecamatan . ' - ' . $item->kelurahan->nama_kelurahan;

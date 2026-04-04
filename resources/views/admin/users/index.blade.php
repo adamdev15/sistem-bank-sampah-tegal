@@ -98,7 +98,7 @@
                             <td>
                                 <span class="status-badge badge-sm status-{{ $user->status }}">{{ ucfirst(str_replace('_',' ',$user->status)) }}</span>
                             </td>
-                            <td class="action-column text-center">
+                            <td class=" text-center">
                                 @if($user->status == 'menunggu_verifikasi')
                                     <button class="btn-verify" data-bs-toggle="modal" data-bs-target="#verifyModal{{ $user->id }}"><i class="fas fa-check"></i></button>
                                 @endif

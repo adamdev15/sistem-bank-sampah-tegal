@@ -128,7 +128,7 @@
         <div class="section-header">
             <h3><i class="fas fa-file-alt"></i> Laporan Bulanan</h3>
             <div class="section-actions">
-                @if($laporans->count() > 0)
+                <!-- @if($laporans->count() > 0)
                     <a href="{{ route('bank-sampah.download.all-reports', ['format' => 'excel']) }}" 
                        class="btn btn-success btn-sm" target="_blank">
                         <i class="fas fa-file-excel"></i> Download Semua (Excel)
@@ -137,7 +137,7 @@
                        class="btn btn-danger btn-sm" target="_blank">
                         <i class="fas fa-file-pdf"></i> Download Semua (PDF)
                     </a>
-                @endif
+                @endif -->
             </div>
         </div>
 

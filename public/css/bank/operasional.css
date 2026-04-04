@@ -1421,6 +1421,26 @@ textarea.form-control {
     gap: 6px;
 }
 
+/* Ringkasan 2-kolom (field | nilai) */
+.operasional-ringkasan-table tbody th {
+    font-weight: 600;
+    font-size: 13px;
+    vertical-align: middle;
+    background: #f8fbf9;
+    border-right: 1px solid #eef4f0;
+    padding: 12px 14px;
+}
+
+.operasional-ringkasan-table tbody td {
+    vertical-align: middle;
+    padding: 12px 14px;
+}
+
+.operasional-ringkasan-table tbody tr:last-child th,
+.operasional-ringkasan-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
 /* ===== PRINT STYLES ===== */
 @media print {
     .no-print,

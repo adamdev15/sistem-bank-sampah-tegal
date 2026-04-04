@@ -8,503 +8,258 @@
 @endsection
 
 @section('content-body')
-<div class="laporan-container">
-    <!-- Header Laporan -->
-    <div class="laporan-header">
-        <div class="header-info">
-            <h2>Detail Laporan Bulanan</h2>
-            <div class="info-grid">
-                <div class="info-item">
-                    <span class="label">Bank Sampah:</span>
-                    <span class="value">{{ $laporan->bankSampahMaster->nama_bank_sampah }}</span>
-                </div>
-                <div class="info-item">
-                    <span class="label">Periode:</span>
-                    <span class="value">{{ $laporan->periode->translatedFormat('F Y') }}</span>
-                </div>
-                <div class="info-item">
-                    <span class="label">Status:</span>
-                    <span class="status-badge status-{{ str_replace('_', '-', $laporan->status) }}">
-                        {{ ucfirst(str_replace('_', ' ', $laporan->status)) }}
-                    </span>
-                </div>
-                <div class="info-item">
-                    <span class="label">Tanggal Input:</span>
-                    <span class="value">{{ $laporan->created_at->translatedFormat('d F Y H:i') }}</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="header-actions">
+@php
+    $fmtKg = fn ($v) => rtrim(rtrim(number_format((float) $v, 2, ',', '.'), '0'), ',');
+    $bs = $laporan->bankSampahMaster;
+    $pctTerkelola = $laporan->jumlah_sampah_masuk > 0
+        ? ($laporan->jumlah_sampah_terkelola / $laporan->jumlah_sampah_masuk) * 100
+        : 0;
+    $jenisLabels = [
+        'plastik_keras' => 'Plastik Keras',
+        'plastik_fleksibel' => 'Plastik Fleksibel',
+        'kertas_karton' => 'Kertas/Karton',
+        'logam' => 'Logam',
+        'kaca' => 'Kaca',
+        'karet_kulit' => 'Karet/Kulit',
+        'kain_tekstil' => 'Kain/Tekstil',
+        'lainnya' => 'Lainnya',
+    ];
+    $totalTerkelola = $laporan->jumlah_sampah_terkelola;
+@endphp
+
+<div class="admin-laporan-show modern-master-wrap">
+
+
+    {{-- Gabungan: ringkas laporan + info bank sampah --}}
+    <div class="admin-laporan-card mb-4">
+        <div class="admin-laporan-card-head d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h3 class="mb-0"><i class="fas fa-file-alt me-2 text-success"></i>Ringkasan & Bank Sampah</h3>
+            <div class="d-flex flex-wrap gap-2">
             @if($laporan->status == 'menunggu_verifikasi')
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verifyModal">
-                    <i class="fas fa-check"></i> Verifikasi Laporan
+                <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#verifyModal">
+                    <i class="fas fa-check me-1"></i> Verifikasi Laporan
                 </button>
             @endif
-            <a href="{{ route('admin.laporan.index') }}" class="btn btn-secondary">
-                <i class="fas fa-arrow-left"></i> Kembali
+            <a href="{{ route('admin.laporan.index') }}" class="btn btn-sm btn-outline-secondary">
+                <i class="fas fa-arrow-left me-1"></i> Kembali
             </a>
         </div>
+        </div>
+        <div class="admin-laporan-card-body">
+        <div class="admin-laporan-card-body pt-2">
+            <div class="admin-utama-grid">
+                <div class="admin-utama-item">
+                    <div class="admin-utama-icon"><i class="fas fa-trash-alt"></i></div>
+                    <div class="admin-utama-meta">
+                        <span class="admin-utama-label">Sampah masuk</span>
+                        <strong class="admin-utama-num">{{ $fmtKg($laporan->jumlah_sampah_masuk) }} kg</strong>
+                    </div>
+                </div>
+                <div class="admin-utama-item">
+                    <div class="admin-utama-icon admin-utama-icon--green"><i class="fas fa-recycle"></i></div>
+                    <div class="admin-utama-meta">
+                        <span class="admin-utama-label">Sampah terkelola</span>
+                        <strong class="admin-utama-num">{{ $fmtKg($laporan->jumlah_sampah_terkelola) }} kg</strong>
+                    </div>
+                </div>
+                <div class="admin-utama-item">
+                    <div class="admin-utama-icon admin-utama-icon--purple"><i class="fas fa-users"></i></div>
+                    <div class="admin-utama-meta">
+                        <span class="admin-utama-label">Jumlah nasabah</span>
+                        <strong class="admin-utama-num">{{ $laporan->jumlah_nasabah }} orang</strong>
+                    </div>
+                </div>
+                <div class="admin-utama-item">
+                    <div class="admin-utama-icon admin-utama-icon--amber"><i class="fas fa-percentage"></i></div>
+                    <div class="admin-utama-meta">
+                        <span class="admin-utama-label">Persentase terkelola</span>
+                        <strong class="admin-utama-num">{{ number_format($pctTerkelola, 1, ',', '.') }}%</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="admin-detail-grid">
+                <div class="admin-detail-row">
+                    <div class="admin-detail-cell">
+                        <span class="admin-detail-label">Nama bank sampah</span>
+                        <span class="admin-detail-value">{{ $bs->nama_bank_sampah }}</span>
+                    </div>
+                    <div class="admin-detail-cell">
+                        <span class="admin-detail-label">Periode</span>
+                        <span class="admin-detail-value"><span class="badge rounded-pill bg-light text-dark border">{{ $laporan->periode->translatedFormat('F Y') }}</span></span>
+                    </div>
+                </div>
+                <div class="admin-detail-row">
+                    <div class="admin-detail-cell">
+                        <span class="admin-detail-label">Status</span>
+                        <span class="admin-detail-value">
+                            <span class="status-badge status-{{ str_replace('_', '-', $laporan->status) }}">{{ ucfirst(str_replace('_', ' ', $laporan->status)) }}</span>
+                        </span>
+                    </div>
+                    <div class="admin-detail-cell">
+                        <span class="admin-detail-label">Tanggal input</span>
+                        <span class="admin-detail-value"><span class="badge rounded-pill bg-secondary bg-opacity-10 text-secondary">{{ $laporan->created_at->translatedFormat('d F Y H:i') }}</span></span>
+                    </div>
+                </div>
+                <div class="admin-detail-row">
+                    <div class="admin-detail-cell">
+                        <span class="admin-detail-label">Kecamatan</span>
+                        <span class="admin-detail-value">{{ $bs->kecamatan->nama_kecamatan }}</span>
+                    </div>
+                    <div class="admin-detail-cell">
+                        <span class="admin-detail-label">Kelurahan</span>
+                        <span class="admin-detail-value">{{ $bs->kelurahan->nama_kelurahan }}</span>
+                    </div>
+                </div>
+                <div class="admin-detail-row">
+                    <div class="admin-detail-cell">
+                        <span class="admin-detail-label">RW</span>
+                        <span class="admin-detail-value"><span class="badge bg-light text-dark border">{{ $bs->rw }}</span></span>
+                    </div>
+                    <div class="admin-detail-cell">
+                        <span class="admin-detail-label">Direktur</span>
+                        <span class="admin-detail-value">{{ $bs->nama_direktur ?: '—' }}</span>
+                    </div>
+                </div>
+                <div class="admin-detail-row admin-detail-row-last">
+                    <div class="admin-detail-cell">
+                        <span class="admin-detail-label">No. HP</span>
+                        <span class="admin-detail-value">{{ $bs->nomor_hp ?: '—' }}</span>
+                    </div>
+                    <div class="admin-detail-cell">
+                        <span class="admin-detail-label">Nomor SK</span>
+                        <span class="admin-detail-value">{{ $bs->nomor_sk ?: '—' }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Data Utama -->
-    <div class="laporan-section">
-        <div class="section-header">
-            <h3>Data Utama</h3>
-        </div>
-        <div class="data-grid">
-            <div class="data-card">
-                <div class="data-icon" style="background: #3498db;">
-                    <i class="fas fa-trash-alt"></i>
-                </div>
-                <div class="data-info">
-                    <h4>{{ number_format($laporan->jumlah_sampah_masuk, 2, ',', '.') }} kg</h4>
-                    <p>Sampah Masuk</p>
-                </div>
-            </div>
-            
-            <div class="data-card">
-                <div class="data-icon" style="background: #2ecc71;">
-                    <i class="fas fa-recycle"></i>
-                </div>
-                <div class="data-info">
-                    <h4>{{ number_format($laporan->jumlah_sampah_terkelola, 2, ',', '.') }} kg</h4>
-                    <p>Sampah Terkelola</p>
-                </div>
-            </div>
-            
-            <div class="data-card">
-                <div class="data-icon" style="background: #9b59b6;">
-                    <i class="fas fa-users"></i>
-                </div>
-                <div class="data-info">
-                    <h4>{{ $laporan->jumlah_nasabah }} orang</h4>
-                    <p>Jumlah Nasabah</p>
-                </div>
-            </div>
-            
-            <div class="data-card">
-                <div class="data-icon" style="background: #e74c3c;">
-                    <i class="fas fa-percentage"></i>
-                </div>
-                <div class="data-info">
-                    @php
-                        $percentage = $laporan->jumlah_sampah_masuk > 0 
-                            ? ($laporan->jumlah_sampah_terkelola / $laporan->jumlah_sampah_masuk) * 100 
-                            : 0;
-                    @endphp
-                    <h4>{{ number_format($percentage, 1) }}%</h4>
-                    <p>Persentase Terkelola</p>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Rincian Jenis Sampah -->
-    <div class="laporan-section">
-        <div class="section-header">
-            <h3>Rincian Jenis Sampah Terkelola</h3>
+    {{-- Rincian --}}
+    <div class="admin-laporan-card mb-4">
+        <div class="admin-laporan-card-head">
+            <h3 class="mb-0"><i class="fas fa-list-ul me-2 text-success"></i>Rincian Jenis Sampah Terkelola</h3>
         </div>
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Jenis Sampah</th>
-                        <th>Jumlah (kg)</th>
-                        <th>Persentase</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                        $jenisLabels = [
-                            'plastik_keras' => 'Plastik Keras',
-                            'plastik_fleksibel' => 'Plastik Fleksibel',
-                            'kertas_karton' => 'Kertas/Karton',
-                            'logam' => 'Logam',
-                            'kaca' => 'Kaca',
-                            'karet_kulit' => 'Karet/Kulit',
-                            'kain_tekstil' => 'Kain/Tekstil',
-                            'lainnya' => 'Lainnya'
-                        ];
-                        $total = $laporan->jumlah_sampah_terkelola;
-                    @endphp
-                    
-                    @foreach($laporan->details as $index => $detail)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $jenisLabels[$detail->jenis_sampah] ?? ucfirst(str_replace('_', ' ', $detail->jenis_sampah)) }}</td>
-                        <td>{{ number_format($detail->jumlah, 2, ',', '.') }}</td>
-                        <td>
+        <div class="admin-laporan-card-body p-0">
+            <div class="table-responsive">
+                <table class="table admin-rincian-table mb-0 align-middle">
+                    <thead>
+                        <tr>
+                            <th style="width:56px;">No</th>
+                            <th>Jenis sampah</th>
+                            <th class="text-end">Jumlah (kg)</th>
+                            <th style="min-width: 200px;">Komposisi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($laporan->details as $index => $detail)
                             @php
-                                $percentage = $total > 0 ? ($detail->jumlah / $total) * 100 : 0;
+                                $pct = $totalTerkelola > 0 ? ($detail->jumlah / $totalTerkelola) * 100 : 0;
+                                $label = $jenisLabels[$detail->jenis_sampah] ?? ucfirst(str_replace('_', ' ', $detail->jenis_sampah));
                             @endphp
-                            <div class="percentage-bar">
-                                <div class="bar-bg">
-                                    <div class="bar-fill" style="width: {{ $percentage }}%"></div>
-                                </div>
-                                <span class="percentage-text">{{ number_format($percentage, 1) }}%</span>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                    
-                    <tr class="table-success">
-                        <td colspan="2" class="text-end"><strong>TOTAL</strong></td>
-                        <td><strong>{{ number_format($total, 2, ',', '.') }} kg</strong></td>
-                        <td><strong>100%</strong></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Info Bank Sampah -->
-    <div class="laporan-section">
-        <div class="section-header">
-            <h3>Informasi Bank Sampah</h3>
-        </div>
-        <div class="info-grid">
-            <div class="info-item">
-                <span class="label">Nama Bank Sampah:</span>
-                <span class="value">{{ $laporan->bankSampahMaster->nama_bank_sampah }}</span>
-            </div>
-            <div class="info-item">
-                <span class="label">Kecamatan:</span>
-                <span class="value">{{ $laporan->bankSampahMaster->kecamatan->nama_kecamatan }}</span>
-            </div>
-            <div class="info-item">
-                <span class="label">Kelurahan:</span>
-                <span class="value">{{ $laporan->bankSampahMaster->kelurahan->nama_kelurahan }}</span>
-            </div>
-            <div class="info-item">
-                <span class="label">RW:</span>
-                <span class="value">{{ $laporan->bankSampahMaster->rw }}</span>
-            </div>
-            <div class="info-item">
-                <span class="label">Direktur:</span>
-                <span class="value">{{ $laporan->bankSampahMaster->nama_direktur }}</span>
-            </div>
-            <div class="info-item">
-                <span class="label">No. HP:</span>
-                <span class="value">{{ $laporan->bankSampahMaster->nomor_hp }}</span>
+                            <tr>
+                                <td class="text-muted">{{ $index + 1 }}</td>
+                                <td><strong>{{ $label }}</strong></td>
+                                <td class="text-end fw-semibold">{{ $fmtKg($detail->jumlah) }}</td>
+                                <td>
+                                    <div class="admin-rincian-bar-wrap">
+                                        <div class="admin-rincian-bar" role="progressbar" aria-valuenow="{{ round($pct) }}" aria-valuemin="0" aria-valuemax="100">
+                                            <span style="width: {{ min(100, $pct) }}%;"></span>
+                                        </div>
+                                        <span class="admin-rincian-pct">{{ number_format($pct, 1, ',', '.') }}%</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                        <tr class="admin-rincian-total">
+                            <td colspan="2" class="text-end fw-bold">Total</td>
+                            <td class="text-end fw-bold">{{ $fmtKg($totalTerkelola) }} kg</td>
+                            <td class="fw-bold">100%</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
-    <!-- Catatan Verifikasi -->
     @if($laporan->catatan_verifikasi || $laporan->status != 'menunggu_verifikasi')
-    <div class="laporan-section">
-        <div class="section-header">
-            <h3>Catatan Verifikasi</h3>
-            @if($laporan->status != 'menunggu_verifikasi')
-                <span class="badge bg-info">Sudah Diverifikasi</span>
-            @endif
+        <div class="admin-laporan-card mb-4">
+            <div class="admin-laporan-card-head d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h3 class="mb-0"><i class="fas fa-comment-dots me-2 text-success"></i>Catatan Verifikasi</h3>
+                @if($laporan->status != 'menunggu_verifikasi')
+                    <span class="badge bg-info text-dark">Sudah diverifikasi</span>
+                @endif
+            </div>
+            <div class="admin-laporan-card-body">
+                @if($laporan->catatan_verifikasi)
+                    <p class="mb-2">{{ $laporan->catatan_verifikasi }}</p>
+                    <small class="text-muted">Diperbarui: {{ $laporan->updated_at->translatedFormat('d F Y H:i') }}</small>
+                @else
+                    <p class="text-muted mb-0">Tidak ada catatan verifikasi.</p>
+                @endif
+            </div>
         </div>
-        <div class="verifikasi-note">
-            @if($laporan->catatan_verifikasi)
-                <p>{{ $laporan->catatan_verifikasi }}</p>
-                <small class="text-muted">
-                    Diupdate: {{ $laporan->updated_at->translatedFormat('d F Y H:i') }}
-                </small>
-            @else
-                <p class="text-muted">Tidak ada catatan verifikasi.</p>
-            @endif
-        </div>
-    </div>
     @endif
 </div>
 
-<!-- Modal Verifikasi -->
 @if($laporan->status == 'menunggu_verifikasi')
-<div class="modal fade" id="verifyModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Verifikasi Laporan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+<div class="modal fade" id="verifyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header text-white border-0" style="background: linear-gradient(135deg, #1f5f46, #2f7d5a);">
+                <h5 class="modal-title"><i class="fas fa-check-circle me-2"></i>Verifikasi Laporan</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
-            <form method="POST" action="{{ route('admin.laporan.verify', $laporan) }}">
+            <form method="POST" action="{{ route('admin.laporan.verify', $laporan) }}" id="verifyLaporanForm">
                 @csrf
                 <div class="modal-body">
-                    <div class="form-group mb-3">
-                        <label for="status">Status Verifikasi</label>
-                        <select class="form-control" id="status" name="status" required>
-                            <option value="">-- Pilih Status --</option>
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status verifikasi</label>
+                        <select class="form-select" id="status" name="status" required>
+                            <option value="">— Pilih —</option>
                             <option value="disetujui">Disetujui</option>
-                            <option value="perlu_perbaikan">Perlu Perbaikan</option>
+                            <option value="perlu_perbaikan">Perlu perbaikan</option>
                         </select>
                     </div>
-                    
-                    <div class="form-group mb-3">
-                        <label for="catatan_verifikasi">Catatan (Opsional)</label>
-                        <textarea class="form-control" id="catatan_verifikasi" 
-                                  name="catatan_verifikasi" rows="3" 
-                                  placeholder="Berikan catatan jika diperlukan..."></textarea>
-                        <small class="text-muted">Catatan akan dikirim ke bank sampah.</small>
+                    <div class="mb-0">
+                        <label for="catatan_verifikasi" class="form-label">Catatan (opsional)</label>
+                        <textarea class="form-control" id="catatan_verifikasi" name="catatan_verifikasi" rows="3" placeholder="Catatan untuk bank sampah…"></textarea>
+                        <small class="text-muted">Catatan akan ditampilkan kepada pengguna bank sampah.</small>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan Verifikasi</button>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-success" id="verifySubmitBtn">Simpan verifikasi</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-@endif
-
-<style>
-.laporan-header {
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 25px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.header-info {
-    flex: 1;
-    min-width: 300px;
-}
-
-.header-info h2 {
-    margin: 0 0 15px 0;
-    color: #2c3e50;
-}
-
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-}
-
-.info-item {
-    display: flex;
-    flex-direction: column;
-}
-
-.info-item .label {
-    font-weight: 600;
-    color: #7f8c8d;
-    font-size: 14px;
-    margin-bottom: 5px;
-}
-
-.info-item .value {
-    color: #2c3e50;
-    font-size: 15px;
-}
-
-.header-actions {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-/* Laporan Section */
-.laporan-section {
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 25px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #f0f0f0;
-}
-
-.section-header h3 {
-    margin: 0;
-    color: #2c3e50;
-    font-size: 18px;
-}
-
-/* Data Grid */
-.data-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.data-card {
-    background: #f8f9fa;
-    border-radius: 8px;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    border-left: 4px solid;
-}
-
-.data-card .data-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 20px;
-}
-
-.data-card .data-info h4 {
-    margin: 0 0 5px 0;
-    color: #2c3e50;
-    font-size: 20px;
-}
-
-.data-card .data-info p {
-    margin: 0;
-    color: #7f8c8d;
-    font-size: 14px;
-}
-
-/* Percentage Bar */
-.percentage-bar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.bar-bg {
-    flex: 1;
-    height: 8px;
-    background: #ecf0f1;
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #3498db, #2ecc71);
-    border-radius: 4px;
-    transition: width 0.3s ease;
-}
-
-.percentage-text {
-    min-width: 50px;
-    text-align: right;
-    font-weight: 600;
-    color: #2c3e50;
-}
-
-/* Verifikasi Note */
-.verifikasi-note {
-    background: #e3f2fd;
-    border-left: 4px solid #2196f3;
-    padding: 15px;
-    border-radius: 4px;
-}
-
-.verifikasi-note p {
-    margin: 0 0 10px 0;
-    color: #1976d2;
-}
-
-/* Table Styling */
-.table {
-    margin-bottom: 0;
-}
-
-.table thead {
-    background: #2c3e50;
-    color: white;
-}
-
-.table th {
-    font-weight: 600;
-    padding: 12px 15px;
-    border-color: #34495e;
-}
-
-.table td {
-    padding: 10px 15px;
-    vertical-align: middle;
-}
-
-.table tbody tr:hover {
-    background-color: #f8f9fa;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .laporan-header {
-        flex-direction: column;
-    }
-    
-    .header-actions {
-        width: 100%;
-        justify-content: flex-start;
-    }
-    
-    .info-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .data-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .data-card {
-        padding: 12px;
-    }
-    
-    .table-responsive {
-        font-size: 14px;
-    }
-    
-    .percentage-bar {
-        flex-direction: column;
-        gap: 5px;
-        align-items: flex-start;
-    }
-    
-    .percentage-text {
-        text-align: left;
-    }
-}
-</style>
 
 <script>
-// Tampilkan loading saat submit verifikasi
-document.addEventListener('DOMContentLoaded', function() {
-    const verifyForm = document.querySelector('#verifyModal form');
-    if (verifyForm) {
-        verifyForm.addEventListener('submit', function(e) {
-            const submitBtn = this.querySelector('button[type="submit"]');
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('verifyLaporanForm');
+    if (form) {
+        form.addEventListener('submit', function () {
+            const btn = document.getElementById('verifySubmitBtn');
+            if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Memproses…'; }
         });
     }
-    
-    // Dynamic status label
     const statusSelect = document.getElementById('status');
-    const catatanTextarea = document.getElementById('catatan_verifikasi');
-    
-    if (statusSelect && catatanTextarea) {
-        statusSelect.addEventListener('change', function() {
+    const catatan = document.getElementById('catatan_verifikasi');
+    if (statusSelect && catatan) {
+        statusSelect.addEventListener('change', function () {
             if (this.value === 'perlu_perbaikan') {
-                catatanTextarea.placeholder = 'Harap jelaskan bagian yang perlu diperbaiki...';
-                catatanTextarea.required = true;
+                catatan.placeholder = 'Jelaskan bagian yang perlu diperbaikan…';
+                catatan.required = true;
             } else {
-                catatanTextarea.placeholder = 'Berikan catatan jika diperlukan...';
-                catatanTextarea.required = false;
+                catatan.placeholder = 'Catatan untuk bank sampah…';
+                catatan.required = false;
             }
         });
     }
 });
 </script>
+@endif
 @endsection

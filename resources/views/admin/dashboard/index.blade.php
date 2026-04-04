@@ -34,11 +34,13 @@
     <section class="dashboard-stats">
         <div class="stats-grid">
             <div class="verify-stat-card total dashboard-stat-card">
-                <div class="verify-icon">
-                    <i class="fas fa-university"></i>
+                <div class="dashboard-stat-head">
+                    <div class="verify-icon dashboard-stat-icon-square">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3 class="dashboard-stat-number">{{ $totalBankSampah }}</h3>
                 </div>
                 <div class="stat-info">
-                    <h3>{{ $totalBankSampah }}</h3>
                     <p>Total Bank Sampah</p>
                     <div class="stat-progress">
                         <span class="progress-label">Cakupan data</span>
@@ -50,11 +52,13 @@
             </div>
 
             <div class="verify-stat-card approved dashboard-stat-card">
-                <div class="verify-icon">
-                    <i class="fas fa-check-circle"></i>
+                <div class="dashboard-stat-head">
+                    <div class="verify-icon dashboard-stat-icon-square">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 class="dashboard-stat-number">{{ $totalBankSampahAktif }}</h3>
                 </div>
                 <div class="stat-info">
-                    <h3>{{ $totalBankSampahAktif }}</h3>
                     <p>Bank Sampah Aktif</p>
                     <div class="stat-progress">
                         <span class="progress-label">Persentase aktif</span>
@@ -66,11 +70,13 @@
             </div>
 
             <div class="verify-stat-card waiting dashboard-stat-card">
-                <div class="verify-icon">
-                    <i class="fas fa-recycle"></i>
+                <div class="dashboard-stat-head">
+                    <div class="verify-icon dashboard-stat-icon-square">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <h3 class="dashboard-stat-number">{{ number_format($totalSampah, 0, ',', '.') }} Kg</h3>
                 </div>
                 <div class="stat-info">
-                    <h3>{{ number_format($totalSampah, 0, ',', '.') }} Kg</h3>
                     <p>Sampah Terkelola {{ date('Y') }}</p>
                     <div class="stat-progress">
                         <span class="progress-label">Target tahunan</span>
@@ -82,11 +88,13 @@
             </div>
 
             <div class="verify-stat-card revision dashboard-stat-card">
-                <div class="verify-icon">
-                    <i class="fas fa-user-clock"></i>
+                <div class="dashboard-stat-head">
+                    <div class="verify-icon dashboard-stat-icon-square">
+                        <i class="fas fa-user-clock"></i>
+                    </div>
+                    <h3 class="dashboard-stat-number">{{ $pendingUsers }}</h3>
                 </div>
                 <div class="stat-info">
-                    <h3>{{ $pendingUsers }}</h3>
                     <p>Akun Menunggu Verifikasi</p>
                     <div class="stat-progress">
                         <span class="progress-label">Beban verifikasi</span>

@@ -98,13 +98,36 @@ body {
    BURGER ICON / SIDEBAR TOGGLE
    ========================= */
 .burger-btn {
-    font-size: 22px;
+    font-size: 1rem;
+    line-height: 1;
     background: none;
     border: none;
     cursor: pointer;
     color: #ffffff;
     display: none;
     transition: transform 0.2s ease;
+}
+
+/* Hamburger konsisten & kompak di semua halaman admin */
+.basman-dashboard-nav .basman-burger-toggle.burger-btn,
+.basman-dashboard-nav .burger-btn.basman-burger-toggle {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    padding: 0 !important;
+    font-size: 1rem !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.basman-dashboard-nav .basman-burger-toggle.burger-btn i,
+.basman-dashboard-nav .burger-btn.basman-burger-toggle i {
+    font-size: 1rem !important;
+    line-height: 1;
+    width: 1em;
+    text-align: center;
 }
 
 .basman-dashboard-nav .burger-btn {
@@ -253,9 +276,14 @@ body {
 .main-panel {
     flex: 1;
     margin-left: 0;
-    transition: margin-left 0.3s ease;
+    transition: margin-left 0.3s ease, width 0.3s ease, max-width 0.3s ease;
     min-height: 100vh;
-    padding: 24px 28px;
+    padding: 24px 20px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 @media (min-width: 992px) {
@@ -267,6 +295,7 @@ body {
     body.admin-sidebar-open .footer {
         margin-left: 250px;
         width: calc(100% - 250px);
+        max-width: calc(100vw - 250px);
         transition: margin-left 0.3s ease, width 0.3s ease;
     }
 
@@ -274,11 +303,15 @@ body {
     body:not(.admin-sidebar-open) .footer {
         margin-left: 0;
         width: 100%;
+        max-width: 100%;
         transition: margin-left 0.3s ease, width 0.3s ease;
     }
 
+    /* Hindari konten melebihi viewport: panel = sisa lebar setelah sidebar */
     .sidebar.sidebar-open ~ .main-panel {
         margin-left: 250px;
+        width: calc(100% - 250px);
+        max-width: calc(100vw - 250px);
     }
 }
 
@@ -618,11 +651,21 @@ body {
 
 .content-body {
     max-width: 100%;
+    min-width: 0;
     overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 .content-body > * {
     max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.content-header {
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: break-word;
 }
 
 .stat-card {
@@ -769,17 +812,25 @@ body {
 
 /* ===== verification pages (laporan & users) ===== */
 .verification-layout {
-    max-width: 1200px;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    min-width: 0;
     margin: 0 auto 16px;
     display: flex;
     flex-direction: column;
     gap: 16px;
+    box-sizing: border-box;
 }
 
 .verification-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
     gap: 14px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .verify-stat-card {
@@ -791,6 +842,9 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .verify-icon {
@@ -823,6 +877,122 @@ body {
 
 .verify-card-shell {
     border-radius: 14px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.verify-card-body {
+    min-width: 0;
+    overflow-x: hidden;
+    padding: 1rem 1rem 1.25rem;
+    box-sizing: border-box;
+}
+
+@media (min-width: 992px) {
+    .verify-card-body {
+        padding: 1.25rem 1.25rem 1.5rem;
+    }
+}
+
+.verify-filter-form {
+    max-width: 100%;
+}
+
+.verify-table-wrap {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+    border-radius: 10px;
+    border: 1px solid #e8eeea;
+}
+
+.verify-laporan-table {
+    width: 100%;
+    min-width: 720px;
+    margin-bottom: 0;
+    font-size: 0.8125rem;
+    table-layout: auto;
+}
+
+.verify-laporan-table thead th {
+    white-space: nowrap;
+    padding: 10px 8px;
+    vertical-align: middle;
+}
+
+.verify-laporan-table tbody td {
+    padding: 10px 8px;
+    vertical-align: middle;
+}
+
+.verify-laporan-table .col-bank {
+    max-width: 220px;
+    word-break: break-word;
+    white-space: normal;
+}
+
+.verify-laporan-table .col-kec {
+    max-width: 140px;
+    word-break: break-word;
+    white-space: normal;
+}
+
+/* Dashboard admin — 4 stat cards: centered, icon persegi sejajar angka */
+.dashboard-stats .stats-grid .verify-stat-card.dashboard-stat-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 18px 16px 16px;
+}
+
+.dashboard-stats .dashboard-stat-head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+.dashboard-stats .dashboard-stat-card .verify-icon.dashboard-stat-icon-square {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    border-radius: 10px;
+    font-size: 1.25rem;
+}
+
+.dashboard-stats .dashboard-stat-card .dashboard-stat-number {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #1f3d2b;
+    line-height: 1.1;
+}
+
+.dashboard-stats .dashboard-stat-card .stat-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dashboard-stats .dashboard-stat-card .stat-info p {
+    margin: 0 0 8px;
+}
+
+.dashboard-stats .dashboard-stat-card .stat-progress {
+    width: 100%;
+    max-width: 220px;
+    margin-top: 6px;
+}
+
+.dashboard-stats .dashboard-stat-card .progress-label {
+    text-align: center;
 }
 
 /* ===== reset password page ===== */

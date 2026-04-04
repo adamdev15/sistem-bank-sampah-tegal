@@ -29,8 +29,8 @@
 
 <header class="header basman-dashboard-nav border-0">
     <div class="header-left flex-grow-1 min-w-0">
-        <button type="button" class="burger-btn btn btn-link text-white p-1 me-1 shadow-none" id="sidebarToggle" aria-label="Buka menu">
-            <i class="fas fa-bars"></i>
+        <button type="button" class="burger-btn btn btn-link text-decoration-none text-white p-1 me-1 shadow-none basman-burger-toggle" id="sidebarToggle" aria-label="Buka menu">
+            <i class="fas fa-bars" aria-hidden="true"></i>
         </button>
 
         <div class="header-logo d-flex align-items-center gap-2 min-w-0">
@@ -160,19 +160,16 @@
                 </li>
 
                 <li class="nav-item {{ request()->is('bank-sampah/download*') ? 'active' : '' }}">
-                    <a href="{{ route('bank-sampah.download.index') }}">
+                    <a href="{{ route('bank-sampah.download.index') }}" class="sidebar-download-link" id="sidebarDownloadNavLink">
                         <i class="fas fa-download"></i>
                         <span>Download Data</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <a href="#" class="nav-link" data-confirm-logout>
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Logout</span>
                     </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
                 </li>
 
             </ul>
@@ -213,6 +210,45 @@
 <script src="{{ asset('js/bank/main.js') }}"></script>
 
 @include('components.modal-confirm')
+
+<div class="modal fade" id="downloadNavConfirmModal" tabindex="-1" aria-labelledby="downloadNavConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header text-white border-0" style="background: linear-gradient(135deg, #1f5f46, #2f7d5a);">
+                <h5 class="modal-title" id="downloadNavConfirmModalLabel"><i class="fas fa-download me-2"></i>Buka halaman Download Data</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Tutup"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0 text-secondary">Anda akan menuju halaman unduh laporan dan data operasional. Lanjutkan?</p>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-success" id="downloadNavConfirmBtn">Ya, lanjutkan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const link = document.getElementById('sidebarDownloadNavLink');
+    const modalEl = document.getElementById('downloadNavConfirmModal');
+    const confirmBtn = document.getElementById('downloadNavConfirmBtn');
+    if (!link || !modalEl || !confirmBtn || typeof bootstrap === 'undefined') return;
+
+    const targetUrl = link.getAttribute('href');
+    const modal = new bootstrap.Modal(modalEl);
+
+    link.addEventListener('click', function (e) {
+        e.preventDefault();
+        confirmBtn.onclick = function () {
+            modal.hide();
+            window.location.href = targetUrl;
+        };
+        modal.show();
+    });
+});
+</script>
 
 @yield('scripts')
 

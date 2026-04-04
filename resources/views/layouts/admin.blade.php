@@ -30,8 +30,8 @@
 <nav class="navbar navbar-expand basman-dashboard-nav sticky-top py-2 px-2 px-lg-3">
     <div class="container-fluid">
         <div class="d-flex align-items-center gap-2 flex-grow-1 min-w-0">
-            <button type="button" class="burger-btn btn btn-link text-decoration-none text-white p-1 me-1 shadow-none" id="burgerBtn" aria-label="Buka menu">
-                <i class="fas fa-bars fa-lg"></i>
+            <button type="button" class="burger-btn btn btn-link text-decoration-none text-white p-1 me-1 shadow-none basman-burger-toggle" id="burgerBtn" aria-label="Buka menu">
+                <i class="fas fa-bars" aria-hidden="true"></i>
             </button>
 
             <form class="d-none d-md-flex ms-3 flex-grow-1" role="search">
@@ -43,7 +43,7 @@
         </div>
 
         @auth
-        <div class="d-flex align-items-center gap-2">
+        <div class="d-flex align-items-center gap-3">
             <div class="dropdown d-none d-md-inline-block">
                 <button type="button" class="btn btn-link text-white position-relative p-1" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fas fa-bell"></i>
@@ -174,13 +174,10 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <a href="#" class="nav-link" onclick="event.preventDefault(); confirmLogout();" role="button">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Logout</span>
                     </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
                 </li>
             </ul>
 

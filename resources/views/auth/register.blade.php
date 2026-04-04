@@ -52,8 +52,10 @@
                                     @foreach($bankSampahs as $group => $items)
                                         <optgroup label="{{ $group }}">
                                             @foreach($items as $bank)
-                                                <option value="{{ $bank->id }}" {{ old('bank_sampah_master_id') == $bank->id ? 'selected' : '' }}>
-                                                    {{ $bank->nama_bank_sampah }} — RW {{ $bank->rw }}
+                                                <option value="{{ $bank->id }}"
+                                                    {{ old('bank_sampah_master_id') == $bank->id ? 'selected' : '' }}
+                                                    @if($bank->user) disabled @endif>
+                                                    {{ $bank->nama_bank_sampah }} — RW {{ $bank->rw }}@if($bank->user) (sudah terdaftar) @endif
                                                 </option>
                                             @endforeach
                                         </optgroup>

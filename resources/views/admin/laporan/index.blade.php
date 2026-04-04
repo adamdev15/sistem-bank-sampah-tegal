@@ -1,4 +1,4 @@
-﻿@extends('layouts.admin')
+@extends('layouts.admin')
 
 @section('page-title', 'Verifikasi Laporan')
 @section('breadcrumb')
@@ -43,9 +43,9 @@
     </div>
 
     <div class="card border-0 shadow-sm verify-card-shell">
-        <div class="card-body">
-            <form method="GET" action="{{ route('admin.laporan.index') }}" class="row g-3 align-items-end mb-3">
-                <div class="col-12 col-md-2">
+        <div class="card-body verify-card-body">
+            <form method="GET" action="{{ route('admin.laporan.index') }}" class="row g-3 align-items-end mb-3 verify-filter-form">
+                <div class="col-12 col-sm-6 col-lg-2">
                     <label class="form-label">Status</label>
                     <select name="status" class="form-select">
                         <option value="">Semua Status</option>
@@ -55,7 +55,7 @@
                     </select>
                 </div>
 
-                <div class="col-12 col-md-2">
+                <div class="col-12 col-sm-6 col-lg-2">
                     <label class="form-label">Kecamatan</label>
                     <select name="kecamatan_id" class="form-select">
                         <option value="">Semua Kecamatan</option>
@@ -67,33 +67,37 @@
                     </select>
                 </div>
 
-                <div class="col-12 col-md-2">
+                <div class="col-12 col-sm-6 col-lg-2">
                     <label class="form-label">Periode</label>
                     <input type="month" name="periode" class="form-control" value="{{ request('periode') }}">
                 </div>
 
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-sm-6 col-lg-3">
                     <label class="form-label">Pencarian</label>
                     <input type="text" name="search" class="form-control" value="{{ request('search') }}" placeholder="Nama bank sampah...">
                 </div>
 
-                <div class="col-12 col-md-2">
-                    <label for="from-label"> Filtering</label>
-                    <div class="d-flex gap-2">
-                    <button type="submit" class="btn btn-success w-100">Filter</button>
-                        <a href="{{ route('admin.laporan.index') }}" class="btn btn-outline-secondary w-100">Reset</a>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <label class="form-label d-block">&nbsp;</label>
+                    <div class="d-flex flex-wrap gap-2">
+                        <button type="submit" class="btn btn-success flex-grow-1">
+                            <i class="fas fa-filter me-1"></i> Terapkan filter
+                        </button>
+                        <a href="{{ route('admin.laporan.index') }}" class="btn btn-outline-secondary flex-grow-1">
+                            <i class="fas fa-undo me-1"></i> Reset filter
+                        </a>
                     </div>
                 </div>
             </form>
 
-            <div class="table-responsive">
-                <table class="table align-middle mb-0 data-table modern-table">
-                    <thead>
+            <div class="table-responsive verify-table-wrap">
+                <table class="table align-middle mb-0 modern-table verify-laporan-table">
+                    <thead class="data-table">
                         <tr>
                             <th>No</th>
                             <th>Periode</th>
-                            <th>Bank Sampah</th>
-                            <th>Kecamatan</th>
+                            <th class="col-bank">Bank Sampah</th>
+                            <th class="col-kec">Kecamatan</th>
                             <th>Sampah Masuk</th>
                             <th>Sampah Terkelola</th>
                             <th>Status</th>
@@ -106,59 +110,26 @@
                         <tr>
                             <td>{{ ($laporans->currentPage() - 1) * $laporans->perPage() + $index + 1 }}</td>
                             <td><strong>{{ $laporan->periode->translatedFormat('F Y') }}</strong></td>
-                            <td>
+                            <td class="col-bank">
                                 {{ $laporan->bankSampahMaster->nama_bank_sampah }}<br>
                                 <small class="text-muted">{{ $laporan->bankSampahMaster->kelurahan->nama_kelurahan }}, RW {{ $laporan->bankSampahMaster->rw }}</small>
                             </td>
-                            <td>{{ $laporan->bankSampahMaster->kecamatan->nama_kecamatan }}</td>
-                            <td class="text-end">{{ number_format($laporan->jumlah_sampah_masuk, 0, ',', '.') }} kg</td>
-                            <td class="text-end">{{ number_format($laporan->jumlah_sampah_terkelola, 0, ',', '.') }} kg</td>
+                            <td class="col-kec">{{ $laporan->bankSampahMaster->kecamatan->nama_kecamatan }}</td>
+                            <td class="text-end text-nowrap">{{ number_format($laporan->jumlah_sampah_masuk, 0, ',', '.') }} kg</td>
+                            <td class="text-end text-nowrap">{{ number_format($laporan->jumlah_sampah_terkelola, 0, ',', '.') }} kg</td>
                             <td>
                                 <span class="status-badge status-{{ str_replace('_', '-', $laporan->status) }}">{{ ucfirst(str_replace('_', ' ', $laporan->status)) }}</span>
                             </td>
-                            <td>{{ $laporan->created_at->translatedFormat('d/m/Y H:i') }}</td>
-                            <td class="text-center action-column">
+                            <td class="text-nowrap">{{ $laporan->created_at->translatedFormat('d/m/Y H:i') }}</td>
+                            <td class="text-center action-column text-nowrap">
                                 <a href="{{ route('admin.laporan.show', $laporan) }}" class="btn-view" title="Lihat Detail"><i class="fas fa-eye"></i></a>
                                 @if($laporan->status == 'menunggu_verifikasi')
-                                    <button class="btn-verify" data-bs-toggle="modal" data-bs-target="#verifyModal{{ $laporan->id }}" title="Verifikasi">
+                                    <button type="button" class="btn-verify" data-bs-toggle="modal" data-bs-target="#verifyModal{{ $laporan->id }}" title="Verifikasi">
                                         <i class="fas fa-check"></i>
                                     </button>
                                 @endif
                             </td>
                         </tr>
-
-                        <div class="modal fade" id="verifyModal{{ $laporan->id }}" tabindex="-1">
-                            <div class="modal-dialog modal-dialog-scrollable">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Verifikasi Laporan</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-                                    <form action="{{ route('admin.laporan.verify', $laporan) }}" method="POST">
-                                        @csrf
-                                        <div class="modal-body">
-                                            <p><strong>Bank Sampah:</strong> {{ $laporan->bankSampahMaster->nama_bank_sampah }}</p>
-                                            <p><strong>Periode:</strong> {{ $laporan->periode->translatedFormat('F Y') }}</p>
-                                            <div class="mb-3">
-                                                <label class="form-label">Status Verifikasi</label>
-                                                <select name="status" class="form-select" required>
-                                                    <option value="disetujui">Disetujui</option>
-                                                    <option value="perlu_perbaikan">Perlu Perbaikan</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label class="form-label">Catatan (Opsional)</label>
-                                                <textarea name="catatan_verifikasi" class="form-control" rows="3" placeholder="Berikan catatan jika diperlukan..."></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
-                                            <button type="submit" class="btn btn-primary">Simpan</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
                         @empty
                         <tr><td colspan="9" class="text-center py-4">Tidak ada laporan</td></tr>
                         @endforelse
@@ -170,4 +141,41 @@
         </div>
     </div>
 </div>
+
+@foreach($laporans as $laporan)
+    @if($laporan->status == 'menunggu_verifikasi')
+    <div class="modal fade" id="verifyModal{{ $laporan->id }}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Verifikasi Laporan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form action="{{ route('admin.laporan.verify', $laporan) }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <p><strong>Bank Sampah:</strong> {{ $laporan->bankSampahMaster->nama_bank_sampah }}</p>
+                        <p><strong>Periode:</strong> {{ $laporan->periode->translatedFormat('F Y') }}</p>
+                        <div class="mb-3">
+                            <label class="form-label">Status Verifikasi</label>
+                            <select name="status" class="form-select" required>
+                                <option value="disetujui">Disetujui</option>
+                                <option value="perlu_perbaikan">Perlu Perbaikan</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="form-label">Catatan (Opsional)</label>
+                            <textarea name="catatan_verifikasi" class="form-control" rows="3" placeholder="Berikan catatan jika diperlukan..."></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    @endif
+@endforeach
 @endsection
